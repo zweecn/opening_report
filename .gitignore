@@ -2,6 +2,9 @@
 
 *.pdf
 
+*.jpg
+*.png
+
 *.aux
 *.bak
 *.log
