@@ -1,19 +1,156 @@
 % !Mode:: "TeX:UTF-8"
 \section{研究方案及进度安排}
-\subsection{研究方案}
-\subsubsection{服务不确定性模型}
+\subsection{服务不确定性事件及服务状态模型}
+
+\subsubsection{服务方案}
+
+使用服务流程表示当前执行中的服务方案，表示为如式(\ref{splan})所示。
+\begin{equation}\label{splan}
+SPlan = \left( {A,E,fc,dc} \right)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${A}$ & 活动集合，表示为~$\{{a_1}, {a_2},...,{a_n}\}$ ~； \\
+    & ${E}$ & 活动之间的时序依赖关系，表示为~$\{{e_1}, {e_2},...,{e_n}\}$ ~；\\
+    & ${fc}$ & 服务若执行失败，提供方需要支付给客户的补偿金；\\
+    & ${dc}$ & 表示服务若执行延期，每单位时间延迟需要支付给客户的补偿金。
+\end{tabularx}\vspace{\wordsep}
+
+针对每个活动，可表示为如如式(\ref{a})所示。
+\begin{equation}\label{a}
+{a_i} = ({CS_i}, {S_{i0}}, {LST_i}, {LET_i})
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${CS_i}$ & 活动的可替换服务集；\\
+    & ${S_{i0}}$ & 当前被选中用于执行该活动$i$的具体服务；\\
+    & ${LST_i}$ & 最晚开始时间；\\
+    & ${LET_i}$ & 最晚结束时间；
+\end{tabularx}\vspace{\wordsep}
+
+针对活动之间的依赖关系，一般的服务流程中存在各种复杂结构关系\citeup{jaeger2004qos}，本文考虑串行与并行两种关系，并使用如式(\ref{e})表示，其意义是活动${a_j}$需要在活动${a_i}$执行完成后才能开始执行，在~DAG~图中体现的则是从结点${a_i}$到结点${a_j}$之间有一条有向边。
+\begin{equation}\label{e}
+e = ({a_i},{a_j})
+\end{equation}
+
+\subsubsection{不确定性事件}
+
+本课题关注的是服务执行过程中从外界可观测到的事件，即站在服务使用者的角度观察系统的运行状态，而不关心服务执行环境内部是何种原因而产生的事件。这样做的原因是服务方案通常是由服务中介方负责构建的，方案中使用的各服务并不受其控制，故只能从外部观察。
+
+事件可表示为如式(\ref{event})所示，其中t为事件发生的时刻，a为事件所涉及的活动，EType表示事件的类型。
+\begin{equation}\label{event}
+event = (t, a, EType)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $t$ & 事件发生的时刻；\\
+    & $a$ & 事件所涉及的活动；\\
+    & $Type$ &事件的类型。
+\end{tabularx}\vspace{\wordsep}
+
+考虑事件的类型~$EType$~。服务执行过程中的产生的事件分为两大类：正常事件、不确定性事件。前者是一项活动按计划正常开始和正常执行结束时所发出，后者是指活动未按预期开始或结束，或者执行失败。按照事件触发的机制，可分为以下三类：
+
+\begin{itemize}
+\item 由定时器所触发的事件，表示某活动未在期望时间点上开始执行或执行完成。服务执行引擎根据服务方案中为每个活动预设的最晚开始和最晚结束时刻对服务执行进行监控，如果到达~$LST_i$~或~$LET_i$~时刻活动未能开始或结束，将发出以下两类事件：
+
+$E_{01}$:~活动~$a_i$~在当前时刻~$t$~未开始执行，满足~$t>LST_i+\delta$~ (~$\delta$~是一个足够小的时间间隔)，一旦系统在~$LST_i+\delta$~时刻未发现~$a_i$~开始执行，则发出该类事件；
+
+$E_{02}$:~与之类似，活动~$a_i$~在当前时刻~$t$~未按计划执行结束，满足~$t>LETi+\delta$~；
+
+\item 由活动的开始执行所触发的事件~($E_{11}$)~。一旦服务活动开始执行，系统即产生该类事件。~$t\le LST_i$~表示活动提前或准时开始，而~$t>LST_i$~表示活动开始迟于计划。
+
+\item 由活动执行结束所触发的事件，可分为以下两种情况：
+
+$E_{21}$:~活动执行失败或错误，未得到期望结果；
+
+$E_{22}$:~活动执行成功。~$t\le LET_i$~表示活动提前或准时执行结束，而~$t>LETi$~表示活动有延迟。
+\end{itemize}
+
+
+\subsubsection{服务执行的状态}
+
+服务流程在执行过程中产生各种正常或不确定事件，导致服务执行不确定状态。本节给出服务执行状态的刻画。
+
+(1)~单个服务的状态
+
+首先定义活动的状态。对某活动~$a_i$~，其状态可表示为~$state(a_i)=STATE\_TYPE^{N/U}<T, C>$~，或简写为~$STATE\_TYPE^{N/U}$~。~$STATE\_TYPE$~可为以下6种类型之一，~$T$~和~$C$~表示~$a_i$~处于当前状态时相比于预期服务方案的时间延迟~(TimeDelay)~和成本溢出~(CostOverflow)~，~$N$~和~$U$~分别表示该状态为正常状态~(Normal)~或不正常状态~(Uncertain)~，正常状态表示时间和成本未超出初始服务方案中对~$a_i$~的时间与成本的规划~$(T\le 0, C\le 0)$~，不正常状态是指当前存在时间延迟或者成本溢出~$(T>0, C>0)$~。对~$NOT\_READY$~、~$FAIL$~、~$CANCEL$~三类状态来说，不存在正常或不正常的分类，可不需标注上标~$N$~或~$U$~。
+
+\begin{itemize}
+
+\item ~($NOT\_READY$):~$a_i$~至少有一个前序活动尚未执行结束，故~$a_i$~尚无开始执行的条件，即~$\exists a' \in \{ {a_j}|\exists e = ( {{a_j},{a_i}} )\} ,state ( {a'} ) \ne FINISH \Rightarrow state ( {{a_i}} ) = NOT\_READY$~。这是所有活动的缺省状态。
+
+\item 待执行($READY$):~若~$a_i$~的所有前序活动均已执行完毕(处于~$FINISH$~状态)，且对这些活动的决策动作均非“终止”时，ai具备了执行的先决条件，进入该状态，即~$\forall a' \in \{ {a_j}|\exists e = ( {{a_j},{a_i}} )\} ,state ( {a'} ) = FINISH \wedge Action(a') \ne STOP \Rightarrow state ( {{a_i}} ) = READY$~。当~$a_i$~处于READY状态且产生~$E_{01}$~时，它仍然处于~$READY$~状态；
+
+\item 执行中($EXEC$):~当本活动产生~$E_{11}$~、~$E_{02}$~事件时，~$a_i$~正在执行中，但尚未结束；
+
+\item 执行后失败($FAIL$):~本活动产生~$E_{21}$~事件，~$a_i$~执行结束，但未得到期望输出，执行失败；
+
+\item 执行后成功~($FINISH$):~本活动产生~$E_{22}$~事件，~$a_i$~执行结束，已得到期望结果；
+
+\item 取消~($CANCEL$):~当某活动处于~$READYU$~、~$FINISHU$~或~$FAIL$~状态，并且决策动作将该活动终止时，~$a_i$~被人为取消，服务方案停止执行而完全失败。
+\end{itemize}
+
+事件或决策动作导致活动的状态变化，状态之间的转换关系如图~\ref{state_trans}~所示。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.6\textwidth]{state_trans}
+    \caption{服务活动的状态转换关系}\label{state_trans}
+    \vspace{-1em}
+\end{figure}
+
+(2)~服务执行的整体状态
+
+将服务执行“前锋线”~(forward line)~上的各服务活动的状态联合起来，共同表示服务执行的整体状态~state(SPlan)~。
+所谓的“前锋线”~(Front Line)~，是指将已经执行的部分和尚未执行的部分分开的一条线，表示为~$FL(SPlan)=\{(a_i, state(a_i))\}$~，它由一组活动及其状态构成，~$prodecessor(FL)$~、~$successor(FL)$~分别为其左侧和右侧的活动集合。处于~$FL$~中的每一个服务，可能是~$READY^{N/U}$~、~$EXEC^{N/U}$~、~$FAIL$~、~$FINISH^{N/U}$~的某一状态，其所有前序活动的状态必须是~$FINISH^{N/U}$~，其所有后序活动的状态必须是~$NOT_READY$~，即
+$\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\rm{ }}FAIL,{\rm{ }}FINIS{H^{N/U}}\} ;\forall a' \in predecessor(FL),state(a') = FINIS{H^{N/U}};\forall a' \in successor(FL),state(a') = NOT\_READY.$
+
+例如，在某一时刻服务执行状态如图~\ref{front_line}~所示，虚线表示流程执行的前锋线，它左侧的活动~$(a_1, a_2, a_5)$~均处于~$FINISH$~状态，它右侧的活动~$(a_7, a_8, a_9)$~均处于~$NOT\_READY$~状态，而在线上的三个活动~$(a_3, a_4, a_6)$~，分别处于~$READY$~、~$EXEC$~、~$FAIL$~状态。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{front_line}
+    \caption{服务方案执行中的状态划分与前锋线}\label{front_line}
+    \vspace{-1em}
+\end{figure}
+
+~$state(SPlan)$~可分为几类：
+\begin{itemize}
+\item 执行前: ~$predecessor(FL) = \emptyset ,$ 对 $ \forall {a_i} \in FL,state({a_i}) = READ{Y^N}$~；
+\item 执行中: ~$FL \ne \emptyset ,predecessor(FL) \ne \emptyset ,successor(FL) \ne \emptyset $~；
+\item 执行结束(成功): ~$FL = \emptyset ,successor(FL) = \emptyset ,$ 对 $\forall {a_i} \in predecessor(FL),state({a_i}) = FINIS{H^{N/U}}$~；
+\item 执行结束(失败): ~$FL \ne \emptyset ,$ 且 $\exists {a_i} \in FL,state({a_i}) = FAIL$~；
+\end{itemize}
+
+面向不确定性的优化决策的目标可表述为：以最小的时间延迟和成本溢出，使服务可最大概率的进入到“成功结束”状态。
+
+\subsection{面向不确定性的服务自适应决策模型}
+
+
+\subsection{基于MDP的不确定性决策方法}
+马尔科夫决策过程~(MDP)\citeup{liuke2004}~将马尔可夫过程与确定性的动态规划相结合，决策者周期或连续观察随机动态系统，序贯的做出决策，系统下一步的状态是随机的，并且其状态转移概率具有马尔可夫性。决策者根据新观察到的状态，再作新的决策，依此反复地进行。通过此种决策，使系统运行的全过程达到某种最优运行效果，选取控制系统发展的最优策略。
+
+服务执行过程中面临的各种不确定性以及对其所做出的决策，符合~Markov~决策过程的定义。因此，采用基于~MDP~的方法进行服务自适应演化过程中的决策，根据当前服务执行状态、发生的不确定性事件、不确定性事件之间的触发关系~(UTG)~，考虑未来的收益和代价，做出当前不确定状态下的最优决策。
+
+按照MDP的数学模型，需要首先建立决策时刻T、服务状态S、决策动作A、转移概率P、代价Reward的数学表达。
+(1)~时刻T：当前服务环节执行中/执行后发生不确定事件、或者预知到尚未执行的环节将会发生不确定事件时开始决策，此时为时刻0。如图4所示的多棵UTG连接形成完全触发关系图，叶子结点的状态处于最终时刻V，“完全触发关系图”的层数是周期个数。这是一个不定周期的时刻序列。
+
+(2)~状态S：根据3.3.1节的内容，将服务流程的所有活动的六种状态组成一个状态集合，形成MDP状态state, 即state = < state(a1), state(a2),…, state(an)>，每个状态附着两个参数(T和C)；
+
+(3)~动作A：根据4.1节的内容，共有终止、不作为、重试、替换、重组五个动作，不同状态下可执行的动作集合有所不同(见表1)。
+
+(4)~转移概率P：转移概率由当前的决策动作和服务活动的状态联合决定，具体计算方式如下所示，其中reliability指的是将要执行的服务端可靠性，若有多个服务，则是多个服务可靠性之积。
+
+(5)~报酬函数Reward：在4.3节中给出。
+
+
+
+\subsection{业务层面的不确定性决策方法}
 文本
 
-\subsubsection{基于MDP的不确定性决策方法}
+\subsection{原型系统}
 文本
 
-\subsubsection{业务层面的不确定性决策方法}
-文本
-
-\subsubsection{原型系统}
-文本
-
-\subsubsection{海运物流业务的不确定性决策系统}
+\subsection{海运物流业务的不确定性决策系统}
 文本
 
 
