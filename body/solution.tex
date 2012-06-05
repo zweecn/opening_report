@@ -215,6 +215,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 
 
+
 \subsection{基于MDP的不确定性决策方法}
 马尔科夫决策过程~(MDP)\citeup{liuke2004}~将马尔可夫过程与确定性的动态规划相结合，决策者周期或连续观察随机动态系统，序贯的做出决策，系统下一步的状态是随机的，并且其状态转移概率具有马尔可夫性。决策者根据新观察到的状态，再作新的决策，依此反复地进行。通过此种决策，使系统运行的全过程达到某种最优运行效果，选取控制系统发展的最优策略。
 
@@ -238,11 +239,15 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 \end{itemize}
 其中~$reliability$~指的是将要执行的服务端可靠性，若有多个服务，则是多个服务可靠性之积。
 
-(5)~报酬函数Reward：在4.2.3节中给出。
+(5)~报酬函数~$Reward$~：在4.2.3节中给出。
 
-算法：基于MDP的服务不确定性优化决策
+\subsubsection{算法}
 
-输入：服务方案SPlan、与当前发生的不确定性事件相关的活动~$activity$~、
+基于上述五个方面的基本定义，采用有限阶段向后递归迭代~MDP~算法进行最优决策序列的求解，得到对当前服务的决策动作。
+
+算法：基于~MDP~的服务不确定性优化决策
+
+输入：服务方案~$SPlan$~、与当前发生的不确定性事件相关的活动~$activity$~、
 ~$SPlan$~中各个活动的当前状态；
 
 输出：最优马氏策略及其成本
@@ -257,27 +262,25 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 步骤5~对所有~$state_t \in S$~，计算
 
-%\begin{equation}\label{backward_mdp}
-%$\begin{array}{l}
-%{u_t}(stat{e_t}) = \mathop {\max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
-%{\rm{               }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
-%\end{array}$
-%\end{equation}
+\begin{equation}\label{backward_mdp}
+\begin{array}{l}
+{u_t}(stat{e_t}) = \mathop {\max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
+{\rm{                        }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
+\end{array}
+\end{equation}
 
 并记集合
 
-%\begin{equation}\label{backward_mdp_arg}
-%$\begin{array}{l} 
-%Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
-%{\rm{                       }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
-%\end{array}$
-%\end{equation}
+\begin{equation}\label{backward_mdp_arg}
+\begin{array}{l}
+Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
+{\rm{                       }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
+\end{array}
+\end{equation}
 
 任意取~$f_t(state_t) \in Action_t(state_t)$~，于是定义了~$t$~时刻的决策规则~$f_t$~。而0时刻的决策~$f_0$~则是对当前故障时刻的故障状态采取最优的直接动作。
 
-\subsubsection{算法}
-
-基于上述五个方面的基本定义，采用有限阶段向后递归迭代~MDP~算法进行最优决策序列的求解，得到对当前服务的决策动作。
+步骤6~返回步骤3。
 
 \subsection{原型系统}
 文本
