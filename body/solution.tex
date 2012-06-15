@@ -29,18 +29,18 @@ SPlan = \left( {A,E,fc,dc} \right)
     & ${LET_i}$ & 最晚结束时间；
 \end{tabularx}\vspace{\wordsep}
 
-针对活动之间的依赖关系，一般的服务流程中存在各种复杂结构关系\citeup{jaeger2004qos}，本文考虑串行与并行两种关系，并使用如式(\ref{e})表示，其意义是活动${a_j}$需要在活动${a_i}$执行完成后才能开始执行，在~DAG~图中体现的则是从结点${a_i}$到结点${a_j}$之间有一条有向边。
-\begin{equation}\label{e}
+针对活动之间的依赖关系，一般的服务流程中存在各种复杂结构关系\citeup{jaeger2004qos}，本文考虑串行与并行两种关系，并使用如式(\ref{equation:e})表示，其意义是活动${a_j}$需要在活动${a_i}$执行完成后才能开始执行，在~DAG~图中体现的则是从结点${a_i}$到结点${a_j}$之间有一条有向边。
+\begin{equation}\label{equation:e}
 e = ({a_i},{a_j})
 \end{equation}
 
-对于候选服务，是以服务编号和~QoS~组成的二元组，如式(~\ref{cs}~)所示。其QoS是以执行时间~$t$~、价格~$p$~，可靠性~$r$~组成的三元组，如式(~\ref{qos}~)所示。
+对于候选服务，是以服务编号和~QoS~组成的二元组，如式(~\ref{equation:cs}~)所示。其QoS是以执行时间~$t$~、价格~$p$~，可靠性~$r$~组成的三元组，如式(~\ref{equation:qos}~)所示。
 
-\begin{equation}\label{cs}
+\begin{equation}\label{equation:cs}
 CS = (id, QoS)
 \end{equation}
 
-\begin{equation}\label{qos}
+\begin{equation}\label{equation:qos}
 QoS = (t, p, r)
 \end{equation}
 
@@ -48,8 +48,8 @@ QoS = (t, p, r)
 
 本课题关注的是服务执行过程中从外界可观测到的事件，即站在服务使用者的角度观察系统的运行状态，而不关心服务执行环境内部是何种原因而产生的事件。这样做的原因是服务方案通常是由服务中介方负责构建的，方案中使用的各服务并不受其控制，故只能从外部观察。
 
-事件可表示为如式(\ref{event})所示，其中t为事件发生的时刻，a为事件所涉及的活动，EType表示事件的类型。
-\begin{equation}\label{event}
+事件可表示为如式(\ref{equation:event})所示，其中t为事件发生的时刻，a为事件所涉及的活动，EType表示事件的类型。
+\begin{equation}\label{equation:event}
 event = (t, a, EType)
 \end{equation}
 \begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
@@ -83,7 +83,7 @@ $E_{22}$:~活动执行成功。~$t\le LET_i$~表示活动提前或准时执行�
 \end{itemize}
 
 
-\subsubsection{服务执行的状态}
+\subsubsection{服务执行的状态} \label{sec:service_state}
 
 服务流程在执行过程中产生各种正常或不确定事件，导致服务执行不确定状态。本节给出服务执行状态的刻画。
 
@@ -106,26 +106,26 @@ $E_{22}$:~活动执行成功。~$t\le LET_i$~表示活动提前或准时执行�
 \item 取消~($CANCEL$):~当某活动处于~$READYU$~、~$FINISHU$~或~$FAIL$~状态，并且决策动作将该活动终止时，~$a_i$~被人为取消，服务方案停止执行而完全失败。
 \end{itemize}
 
-事件或决策动作导致活动的状态变化，状态之间的转换关系如图~\ref{state_trans}~所示。
+事件或决策动作导致活动的状态变化，状态之间的转换关系如图~\ref{figure:state_trans}~所示。
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.6\textwidth]{state_trans}
-    \caption{服务活动的状态转换关系}\label{state_trans}
+    \caption{服务活动的状态转换关系}\label{figure:state_trans}
     \vspace{-1em}
 \end{figure}
 
 (2)~服务执行的整体状态
 
 将服务执行“前锋线”~(forward line)~上的各服务活动的状态联合起来，共同表示服务执行的整体状态~state(SPlan)~。
-所谓的“前锋线”~(Front Line)~，是指将已经执行的部分和尚未执行的部分分开的一条线，表示为~$FL(SPlan)=\{(a_i, state(a_i))\}$~，它由一组活动及其状态构成，~$prodecessor(FL)$~、~$successor(FL)$~分别为其左侧和右侧的活动集合。处于~$FL$~中的每一个服务，可能是~$READY^{N/U}$~、~$EXEC^{N/U}$~、~$FAIL$~、~$FINISH^{N/U}$~的某一状态，其所有前序活动的状态必须是~$FINISH^{N/U}$~，其所有后序活动的状态必须是~$NOT_READY$~，即
+所谓的“前锋线”~(Front Line)~，是指将已经执行的部分和尚未执行的部分分开的一条线，表示为~$FL(SPlan)=\{(a_i, state(a_i))\}$~，它由一组活动及其状态构成，~$prodecessor(FL)$~、~$successor(FL)$~分别为其左侧和右侧的活动集合。处于~$FL$~中的每一个服务，可能是~$READY^{N/U}$~、~$EXEC^{N/U}$~、~$FAIL$~、~$FINISH^{N/U}$~的某一状态，其所有前序活动的状态必须是~$FINISH^{N/U}$~，其所有后序活动的状态必须是~$NOT\_READY$~，即
 $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\rm{ }}FAIL,{\rm{ }}FINIS{H^{N/U}}\} ;\forall a' \in predecessor(FL),state(a') = FINIS{H^{N/U}};\forall a' \in successor(FL),state(a') = NOT\_READY.$
 
-例如，在某一时刻服务执行状态如图~\ref{front_line}~所示，虚线表示流程执行的前锋线，它左侧的活动~$(a_1, a_2, a_5)$~均处于~$FINISH$~状态，它右侧的活动~$(a_7, a_8, a_9)$~均处于~$NOT\_READY$~状态，而在线上的三个活动~$(a_3, a_4, a_6)$~，分别处于~$READY$~、~$EXEC$~、~$FAIL$~状态。
+例如，在某一时刻服务执行状态如图~\ref{figure:front_line}~所示，虚线表示流程执行的前锋线，它左侧的活动~$(a_1, a_2, a_5)$~均处于~$FINISH$~状态，它右侧的活动~$(a_7, a_8, a_9)$~均处于~$NOT\_READY$~状态，而在线上的三个活动~$(a_3, a_4, a_6)$~，分别处于~$READY$~、~$EXEC$~、~$FAIL$~状态。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.5\textwidth]{front_line}
-    \caption{服务方案执行中的状态划分与前锋线}\label{front_line}
+    \caption{服务方案执行中的状态划分与前锋线}\label{figure:front_line}
     \vspace{-1em}
 \end{figure}
 
@@ -162,16 +162,132 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
 
 需要说明的是，虽然决策针对服务的整体状态，但是每次动作只针对前锋线上的某一个活动进行。若前锋线上多个活动均处于异常状态，那么多个导致异常状态的事件必然是有先后次序到达的，因而决策也会随事件到达的先后次序进行。因此，决策只需要针对单一活动的状态进行，不需要针对多个异常活动进行。
 
-针对服务所处的不同状态，可能采取的决策动作是上述五类中的子集。表~\ref{state_action}~的前四列给出了某一活动处于不同状态时可能采用的决策动作集合，以及决策之后可能导致的新状态。
+针对服务所处的不同状态，可能采取的决策动作是上述五类中的子集。表~\ref{table:state_action}~的前四列给出了某一活动处于不同状态时可能采用的决策动作集合，以及决策之后可能导致的新状态。
 
+
+% Table generated by Excel2LaTeX from sheet 'Sheet9'
 \begin{table}[htbp]
-    \caption{服务状态与决策动作之间的关系}
-    \vspace{-0.5em}\label{state_action}\centering\zihao{5}
-%    \includegraphics[width = 0.9\textwidth, bb=0 0 800 600]{state_action}
-    \includegraphics[width = 0.9\textwidth]{state_action}
-\end{table}
+      \caption{服务状态与决策动作之间的关系}
+      \vspace{-0.5em}\label{table:state_action}\centering\zihao{5}
+    \begin{tabular}{rrrrrrrr}
+        \toprule
+        \multicolumn{1}{c}{} & \multicolumn{1}{c}{状态类型} & \multicolumn{1}{c}{决策动作} & \multicolumn{1}{c}{决策后可能导致的状态} & \multicolumn{1}{c}{r [2]} & \multicolumn{1}{c}{DT} & \multicolumn{1}{c}{DC} \\
+        \midrule
+        \multicolumn{1}{c}{\multirow{9}[18]{*}{活动执行前的状态}} & \multirow{7}[14]{*}{READYU(T,C)} & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T, C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{不作为}} & \multicolumn{1}{l}{FINISHN/U(T+DT, C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT, C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Tik-Ti0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Cik-Ci0}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重组}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multirow{2}[4]{*}{} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} &       & \multicolumn{1}{c}{} \\
+        \multicolumn{1}{c}{} & \multirow{2}[4]{*}{READYN(T,C)} & \multicolumn{1}{c}{\multirow{2}[4]{*}{无需决策}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        \multicolumn{1}{c}{\multirow{11}[22]{*}{活动执行后的状态}} & \multirow{7}[14]{*}{FAIL(T,C)} & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重试}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Ti0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Ci0}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重组}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multirow{2}[4]{*}{\textit{}} & \multirow{2}[4]{*}{\textit{}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} &       &  \\
+        \multicolumn{1}{c}{} & \multirow{3}[6]{*}{FINISHU(T,C)} & \multicolumn{1}{c}{不作为} & \multicolumn{1}{l}{后续活动READYU(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{重组} & \multicolumn{1}{l}{后续活动READYN/U(T,C) [1]} & \multicolumn{1}{c}{1} &       & \textit{} \\
+        \multicolumn{1}{c}{} & FINISHN(T,C) & \multicolumn{1}{c}{无需决策} & \multicolumn{1}{l}{后续活动READYN(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
+%        \multicolumn{7}{l}{[1]  是否可以过渡到后续活动的READY状态，取决于流程的结构，只有后续活动的所有前序活动均处于FINISH且不采用“终止”决策时才能够过渡到READY。
+%            [2]  r 为决策后,服务可继续执行的概率; 
+%            [3]  Sik为替换后的服务或者重组后最先执行的服务} & \\
+            \bottomrule
+        \end{tabular}%
+        \label{tab:addlabel}%
+    \end{table}%
+    
 
-\subsubsection{决策收益} \label{reward_section}
+%\begin{table}[htbp]
+%    \caption{服务状态与决策动作之间的关系}
+%    \vspace{-0.5em}\label{table:state_action}\centering\zihao{5}
+%%    \includegraphics[width = 0.9\textwidth, bb=0 0 800 600]{state_action}
+%    \includegraphics[width = 0.9\textwidth]{state_action}
+%\end{table}
+
+% Table generated by Excel2LaTeX from sheet 'Sheet9'
+%\begin{table}[htbp]
+%%    \centering
+%%    \caption{Add caption}
+%     \caption{服务状态与决策动作之间的关系}
+%     \vspace{-0.5em}\label{table:state_action}\centering\zihao{5}
+%    \begin{tabular}{p{2cm}<{\centering}|rrrrrrr}
+%        \toprule
+%        \multicolumn{1}{c|}{} & \multicolumn{1}{c}{状态类型} & \multicolumn{1}{|c|}{决策动作} & \multicolumn{1}{c|}{决策后可能导致的状态} & \multicolumn{1}{c|}{$r^{[2]$} & \multicolumn{1}{c|}{$\Delta T$} & \multicolumn{1}{c}{$\Delta C$} \\
+%%        \midrule
+%        \hline
+%        \multicolumn{1}{c|}{\multirow{9}{*}{aa}} & \multirow{7}[14]{*}{READYU(T,C)} & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T, C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+%
+%%    \multicolumn{1}{c|}{\multirow{9}{*}{\parbox{1em}{活\\动\\执\\行\\前\\的\\状\\态}}} & \multirow{7}{*}{$READY^U(T,C)$} & \multicolumn{1}{|c|}{终止} & \multicolumn{1}{l}{$STOP(T, C+\Delta C)$} & \multicolumn{1}{|c|}{0} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c}{$fc$} \\
+%        
+%%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c|}{\multirow{2}{*}{不作为}} & \multicolumn{1}{l}{$FINISH^{N/U}(T+\Delta T, C+\Delta C)$} & \multicolumn{1}{|c|}{$R_{i0$}} & \multicolumn{1}{c}{\multirow{2}{*}{0}} & \multicolumn{1}{|c}{\multirow{2}{*}{0}} \\
+%
+%    \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{不作为}} & \multicolumn{1}{l}{FINISHN/U(T+DT, C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} \\
+%    
+%        
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{不作为}} & \multicolumn{1}{l}{FINISHN/U(T+DT, C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} \\
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT, C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Tik-Ti0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Cik-Ci0}} \\
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重组}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multirow{2}[4]{*}{} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} &       & \multicolumn{1}{c}{} \\
+%        \cline{2-7}
+%        
+%        \multicolumn{1}{c|}{} & \multirow{2}[4]{*}{READYN(T,C)} & \multicolumn{1}{c}{\multirow{2}[4]{*}{无需决策}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} \\
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+%        \hline
+%        
+%%        \multicolumn{1}{c|}{\multirow{11}[22]{*}{后}} & \multirow{7}[14]{*}{FAIL(T,C)} & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+%        \multicolumn{1}{c|}{\multirow{11}{*}{\parbox{1em}{活\\动\\执\\行\\后\\的\\状\\态}}} & \multirow{7}[14]{*}{FAIL(T,C)} & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重试}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Ti0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Ci0}} \\
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} \\
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重组}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multirow{2}[4]{*}{\textit{}} & \multirow{2}[4]{*}{\textit{}} \\
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} &       &  \\
+%        \cline{2-7}
+%        
+%        \multicolumn{1}{c|}{} & \multirow{3}[6]{*}{FINISHU(T,C)} & \multicolumn{1}{c}{不作为} & \multicolumn{1}{l}{后续活动READYU(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+%        \cline{3-7}
+%        
+%        \multicolumn{1}{c|}{} &       & \multicolumn{1}{c}{重组} & \multicolumn{1}{l}{后续活动READYN/U(T,C) [1]} & \multicolumn{1}{c}{1} &       & \textit{} \\
+%        \cline{2-7}
+%        
+%        \multicolumn{1}{c|}{} & FINISHN(T,C) & \multicolumn{1}{c}{无需决策} & \multicolumn{1}{l}{后续活动READYN(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
+%%        \multicolumn{7}{l}{[1]  是否可以过渡到后续活动的READY状态，取决于流程的结构，只有后续活动的所有前序活动均处于FINISH且不采用“终止”决策时才能够过渡到READY。
+%%            [2]  r 为决策后,服务可继续执行的概率; 
+%%            [3]  Sik为替换后的服务或者重组后最先执行的服务} & \\
+%            \bottomrule
+%        \end{tabular}%
+%    \end{table}%
+%    
+
+\subsubsection{决策收益} \label{sec:reward_section}
 各种动作的目标是“使不确定性造成的损失尽可能小”，但并不保证服务一定能够从异常状态完全回到正常轨道，因此需要分析每种决策对服务执行的影响，计算其损失/受益，以此作为优化决策的依据。
 
 决策动作对原有的服务方案进行了调整，对它的收益度量从以下三个因素入手：
@@ -182,7 +298,7 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
 
 (3)~所引入的新成本~$\Delta C$。~对终止和不作为两种动作来说，新成本为0；对重试动作来说，新成本为重新支付的当前服务使用价格；对替换动作来说，新成本为所选新替代服务的使用价格；对重组动作来说，新成本为所选的多个替代服务的使用价格与原方案中相应服务的使用价格之差。
 因此，在当前状态下state采取决策动作action所带来的总收益是：
-~$Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)$~，其中~$r$~、~$\Delta T$~、 ~$\Delta C$~的计算方式如表~\ref{state_action}~右侧的三列所示。
+~$Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)$~，其中~$r$~、~$\Delta T$~、 ~$\Delta C$~的计算方式如表~\ref{table:state_action}~右侧的三列所示。
 
 \subsubsection{不确定性触发关系图~(UTG)~}
 不确定性本身蕴含着服务的一种状态(不正常状态)，它是可以传播的，若不采取任何对策(不作为)，任由某一不确定性蔓延下去，将会造成更严重的后果(成本溢出、时间延误、执行失败)。即使采取了某一种对策，弥补了某些潜在后果，但可能不会完全弥补，因此也会扩散。这里提出不确定性触发关系图~(Uncertainty Triggering Graph, UTG)~表达~UC~之间的触发关系。利用~UTG~来计算不确定性事件及决策动作所引发的直接和间接代价。
@@ -196,65 +312,62 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 \item ~$TAS=action \to ss$~表示决策动作节点到状态节点的有向边，它具有三个属性：~$tp$~(该状态转移的概率)、~$\Delta T$~(该状态转移所造成的时间延迟)、~$\Delta C$~(该状态转移所造成的成本增加)。
 \end{itemize}
 
-如图~\ref{utg_tree}~给出了UTG示意图，其中菱形框表示根状态，圆形节点表示原子状态，矩形框表示决策动作节点，箭头表示~$TSA$~和~$TAS$~。
+如图~\ref{figure:utg_tree}~给出了UTG示意图，其中菱形框表示根状态，圆形节点表示原子状态，矩形框表示决策动作节点，箭头表示~$TSA$~和~$TAS$~。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.3\textwidth]{utg_tree}
-    \caption{不确定性事件触发关系图~(UTG)~}\label{utg_tree}
+    \caption{不确定性事件触发关系图~(UTG)~}\label{figure:utg_tree}
     \vspace{-1em}
 \end{figure}
 
-在~UTG~模型中，状态节点可以是一棵~UTG~的根节点，这代表了不同~UTG~之间的连接(不同活动的不确定性状态之间的转换)。若将此类~UTG~节点展开，即可形成如图~\ref{many_utg_tree}~所示的形态。
+在~UTG~模型中，状态节点可以是一棵~UTG~的根节点，这代表了不同~UTG~之间的连接(不同活动的不确定性状态之间的转换)。若将此类~UTG~节点展开，即可形成如图~\ref{figure:many_utg_tree}~所示的形态。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.5\textwidth]{many_utg_tree}
-    \caption{多棵UTG的连接~(UTG)~}\label{many_utg_tree}
+    \caption{多棵UTG的连接~(UTG)~}\label{figure:many_utg_tree}
     \vspace{-1em}
 \end{figure}
 
-如图~\ref{utg_example}~给出一个小例子。假设服务方案是由三个活动~$(a_1, a_2, a_3)$~串行构成的流程，图~(a)~表示活动~$a_1$~在~$READY^U$~状态下的~UTG~，~(b)~表示活动~$a_1$~在~$FINISH^U$~状态下的~UTG~，~(c)~表示~$a_1$~在~$FAIL$~状态下的~UTG~。
+如图~\ref{figure:utg_example}~给出一个小例子。假设服务方案是由三个活动~$(a_1, a_2, a_3)$~串行构成的流程，图~(a)~表示活动~$a_1$~在~$READY^U$~状态下的~UTG~，~(b)~表示活动~$a_1$~在~$FINISH^U$~状态下的~UTG~，~(c)~表示~$a_1$~在~$FAIL$~状态下的~UTG~。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.5\textwidth]{utg_example}
-    \caption{~UTG~的三个例子}\label{utg_example}
+    \caption{~UTG~的三个例子}\label{figure:utg_example}
     \vspace{-1em}
 \end{figure}
 
-~UTG~的结构与服务方案的流程结构密切相关。当出现不确定性事件之后，更新相关活动、状态和前锋线的信息，进而根据表~\ref{state_action}~的相关信息生成~UTG~。
+~UTG~的结构与服务方案的流程结构密切相关。当出现不确定性事件之后，更新相关活动、状态和前锋线的信息，进而根据表~\ref{table:state_action}~的相关信息生成~UTG~。
 
 \subsection{业务层面面向不确定性的服务自适应决策模型}
 
 \subsubsection{服务方案}
 
-此处需要增加业务描述的QoS，需求等等
+%此处需要增加业务描述的QoS，需求等等
+%
+%业务层面的服务不同于如式(~\ref{equation:cs}~)所示的表示方式，其除了软件层面的QoS之外，还具备
 
-业务层面的服务不同于如式(~~)
-
-业务层面的不确定性采用海运物流业务作为示例，其多方之间的工作流程如图~\ref{bp_example}~所示。
+业务层面的不确定性采用海运物流业务作为示例，其多方之间的工作流程如图~\ref{figure:bp_example}~所示。它实际上就是一个有向图，将其简化转换之后如图~\ref{figure:bp_ws_process}~所示。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.95\textwidth]{bp_example}
-    \caption{海运物流工作流}\label{bp_example}
+    \caption{海运物流工作流}\label{figure:bp_example}
     \vspace{-1em}
 \end{figure}
-
-如图~\ref{bp_example}~所示的工作流图实际上就是一个有向图，将其简化转换之后如图~\ref{bp_ws_process}~所示。
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width = 0.7\textwidth]{bp_ws_process}
-    \caption{海运物流业务DAG图}\label{bp_ws_process}
+    \caption{海运物流业务DAG图}\label{figure:bp_ws_process}
     \vspace{-1em}
 \end{figure}
 
-
 \subsubsection{不确定性事件}
 
-业务层面执行比软件层面有更多复杂的不确定性事件，其表示方式如式(\ref{event})所示。其不确定性事件的类型除了~\ref{uc_event_section}~节所介绍的之外，还增加两类事件：
+业务层面执行比软件层面有更多复杂的不确定性事件，其表示方式如式(\ref{equation:event})所示。其不确定性事件的类型除了~\ref{uc_event_section}~节所介绍的之外，还增加两类事件：
 
 \begin{itemize}
     
@@ -273,12 +386,12 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
     
 \end{itemize}
 
-其不确定性事件在不同的活动中是不一样的，因此枚举所有活动中所有可能的不确定性事件如表~\ref{ocean_shipping_uc}~所示。
+其不确定性事件在不同的活动中是不一样的，因此枚举所有活动中所有可能的不确定性事件如表~\ref{table:ocean_shipping_uc}~所示。
 
 % Table generated by Excel2LaTeX from sheet 'Sheet8'
 %\begin{table}[htbp]
 %    \caption{海运物流中的不确定性}
-%    \vspace{-0.5em}\label{ocean_shipping_uc}\centering\zihao{5}
+%    \vspace{-0.5em}\label{table:ocean_shipping_uc}\centering\zihao{5}
 %    \begin{tabular}{cccc}
 %         \toprule
 %         活动编号  & 活动描述  & 需求的不确定性 & 可用资源的不确定性 \\
@@ -308,7 +421,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 \begin{table}[htbp]
     \caption{海运物流中的不确定性}
-    \vspace{-0.5em}\label{ocean_shipping_uc}\centering\zihao{5}
+    \vspace{-0.5em}\label{table:ocean_shipping_uc}\centering\zihao{5}
     \begin{tabularx}{\textwidth}{cX}
     \toprule
         活动编号  & \multicolumn{1}{c}{可能的不确定性} \\
@@ -338,6 +451,8 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 \subsubsection{服务执行的状态}
 
+服务执行的状态仍然如~\ref{sec:service_state}~节介绍。
+
 \subsubsection{决策动作}
 
 \subsubsection{事件、决策和状态之间的关系}
@@ -356,11 +471,11 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 按照~MDP~的数学模型，需要首先建立决策时刻~$T$~、服务状态~$S$~、决策动作~$A$~、转移概率~$P$~、代价~$Reward$~的数学表达。
 
-(1)~时刻~$T$~: 前服务环节执行中/执行后发生不确定事件、或者预知到尚未执行的环节将会发生不确定事件时开始决策，此时为时刻0。如图4所示的多棵~UTG~连接形成完全触发关系图，叶子结点的状态处于最终时刻~$V$~，“完全触发关系图”的层数是周期个数。这是一个不定周期的时刻序列。
+(1)~时刻~$T$~: 前服务环节执行中/执行后发生不确定事件、或者预知到尚未执行的环节将会发生不确定事件时开始决策，此时为时刻0。如图~\ref{figure:many_utg_tree}~所示的多棵~UTG~连接形成完全触发关系图，叶子结点的状态处于最终时刻~$V$~，“完全触发关系图”的层数是周期个数。这是一个不定周期的时刻序列。
 
 (2)~状态~$S$~: 服务前锋线上的所有活动的状态即可表示为服务流程的状态，原因是前锋线上的活动状态已知，则可知所有活动的状态。将服务流程的所有活动的六种状态组成一个状态集合，形成~MDP~状态~$state$~, 即~$state =  < state({a_1}),state({a_2}), \ldots ,state({a_n}) >$~，每个状态附着两个参数(~$T$~和~$C$~)；
 
-(3)~动作~$A$~：共有终止、不作为、重试、替换、重组五个动作，不同状态下可执行的动作集合有所不同(见表~\ref{state_action}~)。
+(3)~动作~$A$~：共有终止、不作为、重试、替换、重组五个动作，不同状态下可执行的动作集合有所不同(见表~\ref{table:state_action}~)。
 
 (4)~转移概率~$P$~：转移概率由当前的决策动作和服务活动的状态联合决定，即~$p(state_j|state_i,action)$~的值有以下几类情况：
 \begin{itemize}
@@ -370,7 +485,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 \end{itemize}
 其中~$reliability$~指的是将要执行的服务端可靠性，若有多个服务，则是多个服务可靠性之积。
 
-(5)~报酬函数~$Reward$~：在~\ref{reward_section}~节中给出。
+(5)~报酬函数~$Reward$~：在~\ref{sec:reward_section}~节中给出。
 
 \subsubsection{算法}
 
@@ -383,7 +498,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 输出：最优马氏策略及其成本
 
-步骤1~根据出现故障的活动~$a$~，按照表~\ref{state_action}~构造~UTG~，并将多棵~UTG~连接形成“完全触发关系图”，从而形成状态转移表；
+步骤1~根据出现故障的活动~$a$~，按照表~\ref{table:state_action}~构造~UTG~，并将多棵~UTG~连接形成“完全触发关系图”，从而形成状态转移表；
 
 步骤2~定义当前的不确定状态为时刻0，以此生成向后衍生的UTG，直至服务方案最后一个结点，此时为最终时刻V。从而生成0到~$V$~的~$V+1$~个时刻的若干个状态、若干个动作、相应的转移概率报酬；
 
@@ -393,7 +508,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 步骤5~对所有~$state_t \in S$~，计算
 
-\begin{equation}\label{backward_mdp}
+\begin{equation}\label{equation:backward_mdp}
 \begin{array}{l}
 {u_t}(stat{e_t}) = \mathop {\max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
 {\rm{                        }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
@@ -402,7 +517,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 并记集合
 
-\begin{equation}\label{backward_mdp_arg}
+\begin{equation}\label{equation:backward_mdp_arg}
 \begin{array}{l}
 Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
 {\rm{                       }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
