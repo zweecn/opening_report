@@ -302,11 +302,11 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
 %Line 13
         \multicolumn{1}{c|}{} 
         &       
-        & \multicolumn{1}{|c}{\multirow{2}[4]{*}{替换}} 
+        & \multicolumn{1}{|c}{\multirow{2}{*}{替换}} 
         & \multicolumn{1}{|l}{$FINISH^{N/U}(T+\Delta T,C+\Delta C)$} 
         & \multicolumn{1}{|c}{$R_{ik}^{[3]}$} 
-        & \multicolumn{1}{|c}{\multirow{2}[4]{*}{\textit{}}} 
-        & \multicolumn{1}{|c}{\multirow{2}[4]{*}{\textit{}}} \\
+        & \multicolumn{1}{|c}{\multirow{2}{*}{\textit{}}} 
+        & \multicolumn{1}{|c}{\multirow{2}{*}{\textit{}}} \\
 
 %Line 14 
         \multicolumn{1}{c|}{} 
@@ -335,13 +335,47 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{0} 
         &       
         &  \\
+        \cline{2-7}
+
+%Line 16
+        \multicolumn{1}{c|}{} 
+        & \multirow{3}{*}{$FINISH^U(T,C)$} 
+        & \multicolumn{1}{|c}{不作为} 
+        & \multicolumn{1}{|l}{后续活动$READY^U(T,C)^{[1]}$} 
+        & \multicolumn{1}{|c}{1} 
+        & \multicolumn{1}{|c}{0} 
+        & \multicolumn{1}{|c}{0} \\
         \cline{3-7}
+
+%Line 17
+        \multicolumn{1}{c|}{} 
+        &       
+        & \multicolumn{1}{|c}{终止} 
+        & \multicolumn{1}{|l}{$STOP(T,C+\Delta C)$} 
+        & \multicolumn{1}{|c}{0} 
+        & \multicolumn{1}{|c}{0} 
+        & \multicolumn{1}{|c}{$fc$} \\
+        \cline{3-7}
+
+%Line 18
+        \multicolumn{1}{c|}{} 
+        &       
+        & \multicolumn{1}{|c}{重组} 
+        & \multicolumn{1}{|l}{后续活动$READY^{N/U}(T,C)^[1]$} 
+        & \multicolumn{1}{|c}{1} 
+        &       
+        & \textit{} \\
+        \cline{2-7}
+
+%Line 19
+        \multicolumn{1}{c|}{} 
+        & $FINISH^N(T,C)$
+        & \multicolumn{1}{|c}{无需决策} 
+        & \multicolumn{1}{|l}{后续活动$READY^N(T,C)^[1]$} 
+        & \multicolumn{1}{|c}{1} 
+        & \multicolumn{1}{|c}{0} 
+        & \multicolumn{1}{|c}{0} \\
         
-        
-        \multicolumn{1}{c}{} & \multirow{3}[6]{*}{FINISHU(T,C)} & \multicolumn{1}{c}{不作为} & \multicolumn{1}{l}{后续活动READYU(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
-        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
-        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{重组} & \multicolumn{1}{l}{后续活动READYN/U(T,C) [1]} & \multicolumn{1}{c}{1} &       & \textit{} \\
-        \multicolumn{1}{c}{} & FINISHN(T,C) & \multicolumn{1}{c}{无需决策} & \multicolumn{1}{l}{后续活动READYN(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
 %        \multicolumn{7}{l}{[1]  是否可以过渡到后续活动的READY状态，取决于流程的结构，只有后续活动的所有前序活动均处于FINISH且不采用“终止”决策时才能够过渡到READY。
 %            [2]  r 为决策后,服务可继续执行的概率; 
 %            [3]  Sik为替换后的服务或者重组后最先执行的服务} & \\
