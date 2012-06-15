@@ -180,7 +180,15 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{c}{$\Delta C$} \\
         \hline
         
-        \multicolumn{1}{c}{\multirow{9}[18]{*}{\parbox{1em}{活\\动\\执\\行\\前\\的\\状\\态}}} & \multirow{7}[14]{*}{READYU(T,C)} & \multicolumn{1}{c}{终止} & \multicolumn{1}{l}{STOP(T, C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        \multicolumn{1}{c}{\multirow{9}{*}{\parbox{1em}{活\\动\\执\\行\\前\\的\\状\\态}}} 
+        & \multirow{7}{*}{READYU($T,C$)} 
+        & \multicolumn{1}{c}{终止} 
+        & \multicolumn{1}{l}{STOP($T, C+\Delta C$)} 
+        & \multicolumn{1}{c}{0} 
+        & \multicolumn{1}{c}{0} 
+        & \multicolumn{1}{c}{$fc$} \\
+        
+        
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{不作为}} & \multicolumn{1}{l}{FINISHN/U(T+DT, C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{0}} \\
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT, C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Tik-Ti0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Cik-Ci0}} \\
