@@ -169,7 +169,7 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
 \begin{table}[htbp]
       \caption{服务状态与决策动作之间的关系}
       \vspace{-0.5em}\label{table:state_action}\centering\zihao{5}
-    \begin{tabular}{rrrrrrrr}
+    \begin{tabular}{llllllll}
         \toprule
 % Header
         \multicolumn{1}{c|}{} 
@@ -288,12 +288,37 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{$R_{i0|}$} 
         & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{i0}$}} 
         & \multicolumn{1}{|c}{\multirow{2}{*}{$C_{i0}$}} \\
+
+%Line 12
+        \multicolumn{1}{c|}{} 
+        &       
+        & \multicolumn{1}{|c}{}
+        & \multicolumn{1}{|l}{$FAIL(T+\Delta T,C+\Delta C)$} 
+        & \multicolumn{1}{|c}{0} 
+        & \multicolumn{1}{|c}{}
+        & \multicolumn{1}{|c}{} \\
+        \cline{3-7}
+
+%Line 13
+        \multicolumn{1}{c|}{} 
+        &       
+        & \multicolumn{1}{|c}{\multirow{2}[4]{*}{替换}} 
+        & \multicolumn{1}{|l}{$FINISH^{N/U}(T+\Delta T,C+\Delta C)$} 
+        & \multicolumn{1}{|c}{$R_{ik}^{[3]}$} 
+        & \multicolumn{1}{|c}{\multirow{2}[4]{*}{\textit{}}} 
+        & \multicolumn{1}{|c}{\multirow{2}[4]{*}{\textit{}}} \\
+
+%Line 14 
+        \multicolumn{1}{c|}{} 
+        &       
+        & \multicolumn{1}{|c}{} 
+        & \multicolumn{1}{|l}{$FAIL(T+\Delta T,C+\Delta C)$} 
+        & \multicolumn{1}{|c}{0} 
+        & \multicolumn{1}{|c}{} 
+        & \multicolumn{1}{|c}{} \\
+        \cline{3-7}
         
         
-        
-        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
-        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} \\
-        \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{重组}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multirow{2}[4]{*}{\textit{}} & \multirow{2}[4]{*}{\textit{}} \\
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} &       &  \\
         \multicolumn{1}{c}{} & \multirow{3}[6]{*}{FINISHU(T,C)} & \multicolumn{1}{c}{不作为} & \multicolumn{1}{l}{后续活动READYU(T,C) [1]} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{0} \\
