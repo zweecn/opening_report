@@ -305,8 +305,8 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{\multirow{2}{*}{替换}} 
         & \multicolumn{1}{|l}{$FINISH^{N/U}(T+\Delta T,C+\Delta C)$} 
         & \multicolumn{1}{|c}{$R_{ik}^{[3]}$} 
-        & \multicolumn{1}{|c}{\multirow{2}{*}{\textit{}}} 
-        & \multicolumn{1}{|c}{\multirow{2}{*}{\textit{}}} \\
+        & \multicolumn{1}{|c}{\multirow{2}{*}{${T_{ik}}$}} 
+        & \multicolumn{1}{|c}{\multirow{2}{*}{${C_{ik}}$}} \\
 
 %Line 14 
         \multicolumn{1}{c|}{} 
@@ -324,8 +324,8 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{\multirow{2}{*}{重组}} 
         & \multicolumn{1}{|l}{$FINISH^{N/U}(T+\Delta T,C+\Delta C)$} 
         & \multicolumn{1}{|c}{$R_{ik}^{[3]}$} 
-        & \multirow{2}{*}{\textit{}} 
-        & \multirow{2}{*}{\textit{}} \\
+        & \multicolumn{1}{|c}{\multirow{2}{*}{${T_{i0}} + \sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}} 
+        & \multicolumn{1}{|c}{\multirow{2}{*}{${C_{i0}} + \sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
 
 %Line 15
         \multicolumn{1}{c|}{} 
@@ -333,8 +333,8 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{} 
         & \multicolumn{1}{|l}{$FAIL(T+\Delta T,C+\Delta C)$} 
         & \multicolumn{1}{|c}{0} 
-        &       
-        &  \\
+        & \multicolumn{1}{|c}{} 
+        & \multicolumn{1}{|c}{} \\
         \cline{2-7}
 
 %Line 16
