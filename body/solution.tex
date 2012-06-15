@@ -279,10 +279,18 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{0} 
         & \multicolumn{1}{|c}{$fc$} \\
         \cline{3-7}
-        
-        \multicolumn{1}{c}{} 
+
+%Line 11
+        \multicolumn{1}{c|}{} 
         &       
-        & \multicolumn{1}{c}{\multirow{2}[4]{*}{重试}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Ri0} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Ti0}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{Ci0}} \\
+        & \multicolumn{1}{|c}{\multirow{2}{*}{重试}} 
+        & \multicolumn{1}{|l}{$FINISH^{N/U}(T+\Delta T,C+\Delta C)$} 
+        & \multicolumn{1}{|c}{$R_{i0|}$} 
+        & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{i0}$}} 
+        & \multicolumn{1}{|c}{\multirow{2}{*}{$C_{i0}$}} \\
+        
+        
+        
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{\multirow{2}[4]{*}{替换}} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & \multicolumn{1}{c}{Rik  [3]} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{\textit{}}} \\
         \multicolumn{1}{c}{} &       & \multicolumn{1}{c}{} & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
