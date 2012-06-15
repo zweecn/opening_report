@@ -285,7 +285,7 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         &       
         & \multicolumn{1}{|c}{\multirow{2}{*}{重试}} 
         & \multicolumn{1}{|l}{$FINISH^{N/U}(T+\Delta T,C+\Delta C)$} 
-        & \multicolumn{1}{|c}{$R_{i0|}$} 
+        & \multicolumn{1}{|c}{$R_{i0}$} 
         & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{i0}$}} 
         & \multicolumn{1}{|c}{\multirow{2}{*}{$C_{i0}$}} \\
 
@@ -375,11 +375,12 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
         & \multicolumn{1}{|c}{1} 
         & \multicolumn{1}{|c}{0} 
         & \multicolumn{1}{|c}{0} \\
+        \bottomrule
         
-%        \multicolumn{7}{l}{[1]  是否可以过渡到后续活动的READY状态，取决于流程的结构，只有后续活动的所有前序活动均处于FINISH且不采用“终止”决策时才能够过渡到READY。
-%            [2]  r 为决策后,服务可继续执行的概率; 
-%            [3]  Sik为替换后的服务或者重组后最先执行的服务} & \\
-            \bottomrule
+        \multicolumn{7}{l}{[1] \textit{是否可以过渡到后续活动的READY状态，取决于流程的结构，只有后续活动的所有前序活动均处于}}  \\
+        \multicolumn{7}{l}{\textit{~~~~FINISH且不采用“终止”决策时才能够过渡到READY。}} \\
+        \multicolumn{7}{l}{[2] \textit{$r$为决策后,服务可继续执行的概率; }}  \\
+        \multicolumn{7}{l}{[3] \textit{$S_{ik}$为替换后的服务或者重组后最先执行的服务。 }}  \\
         \end{tabular}%
         \label{tab:addlabel}%
     \end{table}%
