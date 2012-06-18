@@ -642,42 +642,120 @@ state = < state(a_i),state(a_{i+1}),..., state(a_j), event >
     \vspace{-0.5em}\label{table:state_action_bp}\centering\zihao{5}
     \begin{tabular}{rrcrcrr}
         \toprule
-        事件源类型 & \multicolumn{1}{c}{状态类型} & 决策动作  & 决策后可能的状态 & r [2] & \multicolumn{1}{c}{DT} & \multicolumn{1}{c}{DC} \\
+        事件源 & \multicolumn{1}{c}{状态类型} & 决策动作  & 决策后可能的状态 & $r^{[2]}$ & \multicolumn{1}{c}{$\Delta T$} & \multicolumn{1}{c}{$\Delta C$} \\
         \midrule
-        \multicolumn{1}{c}{E31} & \multicolumn{1}{l}{\multirow{5}[10]{*}{READYU(T,C)}} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
-        \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{替换} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        \multicolumn{1}{c}{$E_{31}$} 
+        & \multicolumn{1}{l}{${READY^U(T,C)}$}
+        & \multicolumn{1}{c}{终止}
+        & \multicolumn{1}{l}{$STOP(T,C+\Delta C)$} 
+        & \multicolumn{1}{c}{0} 
+        & \multicolumn{1}{c}{0} 
+        & \multicolumn{1}{c}{$fc$} \\
+        
+        \multicolumn{1}{c}{} 
+        & \multicolumn{1}{l}{} 
+        & \multicolumn{1}{c}{替换} 
+        & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} 
+        & $R_{ik}^{[3]}$ 
+        & \multicolumn{1}{c}{} 
+        & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{\multirow{5}[10]{*}{FAIL(T,C)/EXECU(T,C)}} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{替换} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{\multirow{3}[6]{*}{FINISHU(T,C)}} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{\multirow{4}[8]{*}{E32}} & \multicolumn{1}{l}{\multirow{4}[8]{*}{READYU(T,C)}} & \multirow{2}[4]{*}{替换} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{E33} & \multicolumn{1}{l}{ALL\_STATE} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        
+        
         \multicolumn{1}{c}{\multirow{7}[14]{*}{E41}} & \multicolumn{1}{l}{\multirow{7}[14]{*}{FAIL(T,C)}} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     & \multicolumn{1}{c}{0} & \multicolumn{1}{c}{\textit{fc}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重试} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Ri0   & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{替换} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{\multirow{10}[20]{*}{E42}} & \multicolumn{1}{l}{\multirow{5}[10]{*}{READYU(T,C)}} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     &       &  \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{替换} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{\multirow{5}[10]{*}{EXECU(T,C)/FINISHU(T,C)}} & 终止    & \multicolumn{1}{l}{STOP(T,C+DC)} & 0     &       &  \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{替换} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} & \multirow{2}[4]{*}{重组} & \multicolumn{1}{l}{FINISHN/U(T+DT,C+DC)} & Rik  [3] & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} & \multicolumn{1}{c}{\multirow{2}[4]{*}{}} \\
+        
+        
         \multicolumn{1}{c}{} & \multicolumn{1}{l}{} &       & \multicolumn{1}{l}{FAIL(T+DT,C+DC)} & 0     & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\
         \bottomrule
     \end{tabular}%
