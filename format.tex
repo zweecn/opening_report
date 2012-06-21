@@ -21,12 +21,12 @@
 \renewcommand\thesection{\@arabic \c@section} % 前面不带 thechapter
 \makeatother
 
-%% Add
-%\makeatletter
-%\def\paragraph{\@startsection{paragraph}{4}{\z@}{-.1ex plus
-%        -0.1ex minus -.1ex}{0.1ex plus .1ex}{\hspace{1ex}\normalsize}}
-%        \makeatother
-%        \renewcommand\theparagraph{(\arabic{paragraph})\hspace{-1.5ex}}
+% Add http://www.chinatex.org/bbs/forum.php?mod=viewthread&tid=1327
+\makeatletter
+\def\paragraph{\@startsection{paragraph}{4}{\z@}{-.1ex plus
+        -0.1ex minus -.1ex}{0.1ex plus .1ex}{\hspace{1ex}\normalsize}}
+        \makeatother
+        \renewcommand\theparagraph{(\arabic{paragraph})\hspace{-1.5ex}}
 
 %\makeatletter
 %\def\paragraph{\@startsection{paragraph}{4}{\z@}{-3.25ex plus
