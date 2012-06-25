@@ -2,7 +2,7 @@
 \section{国内外在该方向的研究现状及分析}
 \subsection{国外研究现状}
 
-“不确定性”在学术领域是比较关注的问题，研究从建模、对策和软件实施三个层面进行，其中针对对策的研究可分为服务替换~(Web Service substitution)、故障恢复~(fault recovery)、服务自愈~(self-healing)~和动态组合~(Dynamic composition)~四类研究方法，思路如图~\ref{uc_ways}~所示。
+“不确定性”和“服务风险评估”在学术领域是比较关注的问题，研究从建模、对策和软件实施三个层面进行，其中针对对策的研究可分为服务替换~(Web Service substitution)~、故障恢复~(fault recovery)~、服务自愈~(self-healing)~和动态组合~(Dynamic composition)~四类研究方法，思路如图~\ref{uc_ways}~所示。
 
 \begin{figure}[htbp]
 \centering
@@ -14,13 +14,13 @@
 根据这个思路，国外的研究现状如下几个方面。
 
 \setcounter{paragraph}{0}
-\paragraph{服务不确定性的建模}
+\paragraph{服务风险建模}
 
-%在按需服务环境中，客户对服务的使用通常建立在动态订阅基础上，客户与服务提供者在服务执行之前需要保证他们之间在性能、可靠性和可用性等~QoS~方面的协议。为了及时发现客户提出的质量期望与服务实现支持的质量之间潜在的不一致，在不同的情境下需要由客户、服务提供者、或者由他们共同执行有关分析。由于经济和实践方面的原因，需要对服务的~QoS~参数进行度量和监测，及时检查约定的服务级别和在~SLA~管理过程中汇报给相关参与者。~Web Service Level Agreement (WSLA)~框架旨在定义和监测~web~服务的~SLA~，标准的WSLA框架基于~XML Schema~定义灵活和可扩展的描述语言和可以监控不同~SLA~的运行时体系架构\citeup{keller2003wsla}。
+在一个服务环境中，用户对服务的使用，需要对服务的~QoS~参数进行定量度量和参数监测，及时检查约定的服务级别和在~SLA~管理中汇报给有关参与者。文献\cite{keller2003wsla}中，介绍了~Web Service Level Agreement (WSLA)~框架，旨在定义和监测~web~服务的~SLA~，标准的~WSLA~框架基于~XML Schema~定义，其灵活和可扩展的描述语言和可以监控不同~SLA~的运行时体系架构。
 
-针对服务运行时可能发生的不确定性，研究者从不同角度提出了分类模式。文献\cite{kokash2007evaluating}将其分为服务/数据/用户缺失、非期望的服务行为、性能问题、协议违反等类型。文献\cite{chan2009fault}从物理~(physical)~、开发~(development)~、交互~(interaction)~三个方面将服务的故障分为~13~个小类别，并对其原因和影响进行了全面的分析。文献针对~web~应用层面、~web service~层面、基础设施和中间件层面对可能的服务执行故障分为~9~类，例如~QoS~违反、~WS~执行失败、~WS~协调错误、网络错误等\citeup{ardagna2006faults}。
+针对服务运行时可能发生的不确定性(风险)，目前的研究从不同角度进行分类和建模。文献\cite{kokash2007evaluating}将其分为服务/数据/用户缺失、非期望的服务行为、性能问题、协议违反等类型。文献\cite{chan2009fault}从物理~(physical)~、开发~(development)~、交互~(interaction)~三个方面将服务的故障分为~13~个小类别，并对其原因和影响进行了全面的分析。文献针对~web~应用层面、~web service~层面、基础设施和中间件层面对可能的服务执行故障分为~9~类，例如~QoS~违反、~WS~执行失败、~WS~协调错误、网络错误等\citeup{ardagna2006faults}。
 
-相关研究还包括基于SLA的服务风险度量与估算方法\citeup{michalk2010risk}、面向~SLA~一致性分析的自动化算法\citeup{yang2003compatibility}等，以协助客户/提供者发现不确定性以及造成的影响。
+针对服务的度量建模，相关研究有基于~SLA~的服务风险度量与估算方法\citeup{michalk2010risk}、面向~SLA~一致性分析的自动化算法\citeup{yang2003compatibility}等，以协助客户/提供者发现不确定性以及造成的影响。
 
 \paragraph{不确定性对策}
 
@@ -57,10 +57,11 @@
 
 \paragraph{软件实施}
 
-a)~运行时的监管
+在对服务不确定性进行建模和采取决策动作的理论研究之后，需要将具体的方法应用到实际的软件服务中，因此，相关研究包括服务的运行时监控。
 
+基于~SLA~监听的研究，如文献\cite{goel2011sla}提出叫~SLA~监听器的集成系统，形式化的定义了多种~SLA~属性。使得在实际业务流程中，~BLA~(Business Level Agreements)~和~BLO~(Business Level Objectives)~都得到满足。文献\cite{raimondi2008efficient}提出~Web Service~层面的时间自动机来监听服务提供者和用户之间的SLA属性，主要针对延时~(Latency)~、可靠性~(Reliability)~和吞吐量~(Throughput)~。在服务保障的研究中，如文献\cite{bravetti2007theory}\cite{bravetti2009theory}提出在服务组合时对服务进行过滤，使得服务在任何时候调用时都已经就绪，尽可能提高服务可靠度。
 
-b)~多方协议的建模与保障
+在运行时的监控，监听组合服务在执行时的状态，一旦出现故障需要立刻抛出异常并处理。文献\cite{chen2008dynamic}提出~MANET~自组网络的工作组~(Mobile Ad-hoc NETworks)~，针对分布式服务组合执行网络，提出了一种监测服务执行状态的机制，每个执行中的服务的监视器就是他是前驱服务，提供了出错时较高的响应速度。文献\cite{moser2008non}提出了~VieDAME~系统，允许监听~BPEL~流程和监听服务的~QoS~，并能根据一系列的替换策略进行服务替换而不影响~BPEL~的正常执行。文献\cite{baresi2005dynamo}提出一种动态监督框架，扩展~Active BPEL~使得其可以在现有的BPEL执行引擎中执行。
 
 %在软件层面，可采用可靠性保障的方法来解决~web~服务中的不确定性问题\citeup{subramanian2008enhancement}，在最初构建服务方案时就考虑可能面临的风险，将可靠性、不确定性等因素加入到服务选择与服务组合模型/算法中，以降低未来执行中的风险。可使用~Stochastic Petri Nets~等工具对~Web~服务组合方案进行建模，以计算组合服务的~reliability\citeup{zhong2008reliability}~，或者考虑服务发生风险时的依赖关系\citeup{liu2009risk}，以此作为服务组合的可靠性优化依据，进而通过~Markov~决策过程~(MDP)~等方法来选择最符合客户风险偏好的可靠服务\citeup{harney2008selective}\citeup{gao2011reliability}。
 %
