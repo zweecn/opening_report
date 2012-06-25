@@ -5,7 +5,10 @@
 
 本课题将要研究的内容主要分为~5~个部分，首先研究软件服务和业务服务的不确定性决策，建立服务不确定性决策模型，其次基于此模型采用软件服务实现不确定性决策，然后上升到业务服务的不确定性决策，最后通过对软件服务的不确定性仿真，再进而将业务服务的不确定性决策应用在海运物流的不确定性决策中。以下则是针对这五个方面的具体研究方案。
 
-\subsubsection{基于价值的服务不确定性建模}
+\subsubsection{基于价值的服务不确定性建模} \label{sec:model_section}
+
+在一个服务环境中，针对服务运行时可能发生的不确定性(风险)进行监听，从而发现故障并采取相应的动作使得服务能够最大限度地正常执行。因此，需要对服务方案、不确定性事件、服务执行的状态进行建模，同时本课题提出不确定性事件触发关系图~(UTG)~并对此进行建模，为了度量决策的优劣，需要对决策收益(价值)进行建模。
+
 \setcounter{paragraph}{0}
 \paragraph{服务方案}
 
@@ -48,7 +51,7 @@ CS = (id, QoS)
 QoS = (t, p, r)
 \end{equation}
 
-\paragraph{不确定性事件} \label{sec:uc_event}
+\paragraph{不确定性事件} 
 
 本课题关注的是服务执行过程中从外界可观测到的事件，即站在服务使用者的角度观察系统的运行状态，而不关心服务执行环境内部是何种原因而产生的事件。这样做的原因是服务方案通常是由服务中介方负责构建的，方案中使用的各服务并不受其控制，故只能从外部观察。
 
@@ -86,11 +89,11 @@ event = (t, a, EType)
     
 \end{itemize}
 
-\paragraph{服务执行的状态} \label{sec:service_state}
+\paragraph{服务执行的状态} 
 
 服务流程在执行过程中产生各种正常或不确定事件，导致服务执行不确定状态。本节给出服务执行状态的刻画。
 
-a)~单个服务的状态
+~a)~单个服务的状态
 
 首先定义活动的状态。对某活动~$a_i$~，其状态可表示为如式(\ref{equation:state})所示。
 
@@ -130,7 +133,7 @@ state(a_i)=STATE\_TYPE^{N/U}<T, C>
     \vspace{-1em}
 \end{figure}
 
-b)~服务执行的整体状态
+~b)~服务执行的整体状态
 
 将服务执行“前锋线”~(forward line)~上的各服务活动的状态联合起来，共同表示服务执行的整体状态~state(SPlan)~，如式(\ref{equation:state_total})所示。
 
@@ -162,7 +165,7 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
     \item 执行结束(失败): ~$FL \ne \emptyset ,$ 且 $\exists {a_i} \in FL,state({a_i}) = FAIL$~；
 \end{itemize}
 
-\paragraph{不确定性触发关系图~(UTG)~} \label{sec:utg}
+\paragraph{不确定性触发关系图~(UTG)~} 
 不确定性本身蕴含着服务的一种状态(不正常状态)，它是可以传播的，若不采取任何对策(不作为)，任由某一不确定性蔓延下去，将会造成更严重的后果(成本溢出、时间延误、执行失败)。即使采取了某一种对策，弥补了某些潜在后果，但可能不会完全弥补，因此也会扩散。这里提出不确定性触发关系图~(Uncertainty Triggering Graph, UTG)~表达~UC~之间的触发关系。利用~UTG~来计算不确定性事件及决策动作所引发的直接和间接代价。
 
 UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, TSA, TAS)$，其中：
@@ -203,7 +206,7 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
 
 ~UTG~的结构与服务方案的流程结构密切相关。当出现不确定性事件之后，更新相关活动、状态和前锋线的信息，进而根据表~\ref{table:state_action}~的相关信息生成~UTG~。
 
-\paragraph{决策收益(价值)} \label{sec:reward_section}
+\paragraph{决策收益(价值)} 
 
 各种动作的目标是“使不确定性造成的损失尽可能小”，但并不保证服务一定能够从异常状态完全回到正常轨道，因此需要分析每种决策对服务执行的影响，计算其损失/受益，以此作为优化决策的依据。
 
@@ -228,8 +231,11 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
 面向不确定性的优化决策的目标可表述为：以最小的时间延迟和成本溢出，使服务可最大概率的进入到“成功结束”状态。
 
 \subsubsection{基于~MDP~的软件服务不确定性决策}
+
+在软件服务环境中，针对服务运行时可能发生的不确定性(风险)进行监听，从而发现故障并采取相应的动作使得服务能够最大限度地正常执行。因此，在\ref{sec:model_section}节介绍的基于价值的服务不确定性建模的基础上，针对软件服务层面对事件、决策和状态之间以及它们之间的关系进行建模，最后基于~MDP~对软件服务不确定性进行求解优化。
+
 \setcounter{paragraph}{0}
-\paragraph{决策动作} \label{sec:action}
+\paragraph{决策动作}
 
 针对每一种不确定性，有多种可用的决策动作，需要识别出可能的决策动作，对其分类，并估算“若采取某项决策动作，可能会付出的直接/间接成本，以及对服务预期收益的影响”。将每一次决策表示为四元组~$SPlan,{a_i},state,action,SPlan'$~，含义是：当前服务执行方案~$SPlan$~，出现了不确定性事件导致某服务活动~$a_j$~进入状态~$state_j$~，此时采取对策~$action$~，得到新的方案~$SPlan'$~。
 
@@ -490,7 +496,8 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
 
 \paragraph{决策收益}
 
-在基于~MDP~的软件服务不确定性决策方法中，根据~\ref{sec:reward_section}~节所述的几种决策收益的计算方案，得出如下基于~MDP~的服务不确定性决策收益的计算方式。
+在基于~MDP~的软件服务不确定性决策方法中，根据~\ref{sec:model_section}~节所述的几种决策收益的计算方案，得出如下基于~MDP~的服务不确定性决策收益的计算方式：
+
 \begin{itemize}
 
 \item 服务执行失败付给用户的赔偿为~$fc$~. 这是整体服务执行失败时的赔偿。
@@ -501,13 +508,13 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
 
 \end{itemize}
 
-因此，在当前状态下state采取决策动作action所带来的总收益即可根据式(\ref{equation:reward})计算得出。
+因此，在当前状态~state~采取决策动作~action~所带来的总收益即可根据式(\ref{equation:reward})计算得出。
 
 \paragraph{基于~MDP~的不确定性决策方法}
 
 马尔科夫决策过程~(MDP)\citeup{liuke2004}~将马尔可夫过程与确定性的动态规划相结合，决策者周期或连续观察随机动态系统，序贯的做出决策，系统下一步的状态是随机的，并且其状态转移概率具有马尔可夫性。决策者根据新观察到的状态，再作新的决策，依此反复地进行。通过此种决策，使系统运行的全过程达到某种最优运行效果，选取控制系统发展的最优策略。
 
-a)~{模型}
+~a)~{模型}
 
 服务执行过程中面临的各种不确定性以及对其所做出的决策，符合~Markov~决策过程的定义。因此，采用基于~MDP~的方法进行服务自适应演化过程中的决策，根据当前服务执行状态、发生的不确定性事件、不确定性事件之间的触发关系~(UTG)~，考虑未来的收益和代价，做出当前不确定状态下的最优决策。
 
@@ -528,11 +535,11 @@ a)~{模型}
 \end{itemize}
 其中~$reliability$~指的是将要执行的服务端可靠性，若有多个服务，则是多个服务可靠性之积。
 
-\item 报酬函数~$Reward$~：在~\ref{sec:reward_section}~节中给出。
+\item 报酬函数~$Reward$~：在~\ref{sec:model_section}~节中给出。
 
 \end{itemize}
 
-b)~{算法}
+~b)~{算法}
 
 基于上述五个方面的基本定义，采用有限阶段向后递归迭代~MDP~算法进行最优决策序列的求解，得到对当前服务的决策动作。
 
@@ -574,7 +581,7 @@ Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t}
 步骤6~返回步骤3。
 
 \subsubsection{基于XX的业务服务不确定性决策}
-
+\setcounter{paragraph}{0}
 
 
 \subsubsection{不确性决策的仿真系统}
@@ -607,8 +614,11 @@ Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t}
 实验3：针对不同结构、不同规模的流程，针对一次决策所耗费时间的对比。
 
 \subsubsection{不确性决策在海运物流中的应用验证}
+
+在基于价值的服务不确定性建模，并在软件服务中得以仿真实验后，以此思路将不确定性决策应用于海运物流业务服务中。因此，需要针对海运物流业务收取相应的信息，对海运物流服务方案、海运物流服务不确定性事件、海运物流服务的执行的状态、海运物流服务决策动作、海运物流服务中事件和决策及状态之间的关系、海运物流服务决策收益进行建模，最后开发出海运物流业务的不确定性决策系统。
+
 \setcounter{paragraph}{0}
-\paragraph{服务方案}
+\paragraph{海运物流服务方案}
 
 %此处需要增加业务描述的QoS，需求等等
 %
@@ -630,9 +640,9 @@ Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t}
     \vspace{-1em}
 \end{figure}
 
-\paragraph{不确定性事件} \label{sec:uc_bp}
+\paragraph{海运物流服务不确定性事件}
 
-业务层面执行比软件层面有更多复杂的不确定性事件，其表示方式如式(\ref{equation:event})所示。其不确定性事件的类型除了~\ref{sec:uc_event}~节所介绍的之外，还增加两类事件：
+业务层面执行比软件层面有更多复杂的不确定性事件，其表示方式如式(\ref{equation:event})所示。其不确定性事件的类型除了软件服务的不确定性事件之外，还增加两类事件：
 
 \begin{itemize}
     
@@ -716,10 +726,11 @@ Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t}
     \end{tabularx}%
 \end{table}%
 
-\paragraph{服务执行的状态}
+\paragraph{海运物流服务的执行的状态}
 
-(1)~单个活动的状态
-服务执行的状态仍然如~\ref{sec:service_state}~节介绍，单个活动之间的状态转换关系如图~\ref{figure:state_trans_pb}~所示。
+~a)~单个活动的状态
+
+服务执行的状态表示方式与软件服务状态表示方式一致，单个活动之间的状态转换关系如图~\ref{figure:state_trans_pb}~所示。
 
 \begin{figure}[htbp]
     \centering
@@ -730,13 +741,17 @@ Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t}
 
 业务层面服务活动之间的状态转换不同于如图~\ref{figure:state_trans}~所示的~Web Service~服务活动之间的状态转换，其不同点主要有：
 
-1)~业务层面的不确定性事件包含了~Web Service~层面的所有不确定性事件，并具备~\ref{sec:uc_bp}~节所介绍的业务层面不确定性；
+\begin{itemize}
 
-2)~业务层面在$READY$状态时会有用户的需求或者外部环境的变化，使得服务执行到另外的状态；而在纯的~Web Service~层面无需对$READY$状态的不确定性进行考虑；
+\item 业务服务在部分活动上即是~Web Service~，另一些活动是业务服务，因此具备业务层面不确定性；
 
-3)~业务层面在$EXEC$状态也会有用户的需求或者外部环境的变化而导致于服务执行状态发生变化，甚至于引起服务执行失败；而在~Web Service~层面仅仅需要等到服务执行完的事件触发~$E_{21}/E_{22}$~。
+\item 业务层面在$READY$状态时会有用户的需求或者外部环境的变化，使得服务执行到另外的状态；而在纯的~Web Service~层面无需对$READY$状态的不确定性进行考虑；
 
-(2)~服务执行的整体状态
+\item 业务层面在$EXEC$状态也会有用户的需求或者外部环境的变化而导致于服务执行状态发生变化，甚至于引起服务执行失败；而在~Web Service~层面仅仅需要等到服务执行完的事件触发~$E_{21}/E_{22}$~。
+
+\end{itemize}
+
+~b)~服务执行的整体状态
 
 在业务层面，由于不同的事件会使得流程执行到不同的状态，并且业务层面的需求和外部环境是可观察的，这与~Web Service~层面不同。因此，处理服务不确定性时需要确定是由用户需求导致的还是由外部环境变化导致的，从而整体服务流程的状态可由前锋线上的状态和不确定性事件源组合而成，如式(\ref{equation:state_total_bp})所示。
 
@@ -751,13 +766,13 @@ state = < state(a_i),state(a_{i+1}),..., state(a_j), event >
 
 业务层面的不确定性事件也包含软件层面的不确定性事件，而软件层面的不确定性事件是不可观测的，因此若服务状态是由软件层面的不确定性事件触发，则式(\ref{equation:state_total_bp})中的~$event$~取值为~$NULL$~，此时，按照软件层面的不确定性进行决策，如表~\ref{table:state_action}~所示。
 
-\paragraph{决策动作}
+\paragraph{海运物流服务决策动作}
 
 业务层面的决策动作如同软件层面的决策动作，只是决策时刻不只是在服务执行结束时，而且在服务未执行时若有不确定性事件发生也会进行决策，换句话说，决策不仅包括对当前所执行服务的决策，并对预测的非正常服务也执行决策。
 
 同时，业务层面的不确定性一旦发生，就必须做出决策，这是因为无论用户需求发生变化还是外部环境发生变化，若不进行动作（不作为）则会导致业务执行下来不满足用户需求或者彻底失败，而这两种结果不是想要的结果。
 
-\paragraph{事件、决策和状态之间的关系}
+\paragraph{海运物流服务中事件、决策和状态之间的关系}
 
 要对业务层面的不确定性进行决策，需要知道业务层面导致于此类不确定性的原因(事件源)，即是在如图~\ref{figure:state_trans_pb}~中体现出来即指向某状态的边上的事件，于是可以根据类似表~\ref{table:state_action}~中所示的软件层面不确定性而得出业务层面不确定性，如表~\ref{table:state_action_bp}~所示，此表与如图~\ref{figure:state_trans_pb}~中的事件和状态相一致。
 
@@ -1056,13 +1071,13 @@ state = < state(a_i),state(a_{i+1}),..., state(a_j), event >
     \end{threeparttable}
 \end{table}%
 
-\paragraph{决策收益}
+\paragraph{海运物流服务决策收益}
 
-决策收益的计算方式与~\ref{sec:reward_section}~节介绍的软件层面的决策收益一致，其中~$r$~、~$\Delta T$~、 ~$\Delta C$~的计算方式如表~\ref{table:state_action_bp}~右侧的三列所示。
+决策收益的计算方式与软件层面的决策收益一致，其中~$r$~、~$\Delta T$~、 ~$\Delta C$~的计算方式如表~\ref{table:state_action_bp}~右侧的三列所示。
 
-\paragraph{不确定性触发关系图}
-
-业务层面不确定性触发关系图同~\ref{sec:utg}~介绍一样。
+%\paragraph{不确定性触发关系图}
+%
+%业务层面不确定性触发关系图同~\ref{sec:utg}~介绍一样。
 
 \paragraph{海运物流业务的不确定性决策系统}
 
