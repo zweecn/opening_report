@@ -270,223 +270,196 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
             %    \begin{tabularx}{\textwidth}{llXlllll}
             \toprule
             % Header
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             & \multicolumn{1}{c}{状态类型\tnote{1}} 
-            & \multicolumn{1}{|c}{{决策动作}} 
-            & \multicolumn{1}{|c}{决策后可能状态\tnote{1}} 
-            & \multicolumn{1}{|c}{$r$~\tnote{2}} 
-            & \multicolumn{1}{|c}{$\Delta T$} 
-            & \multicolumn{1}{|c|}{$\Delta C$} \\
+            & \multicolumn{1}{c}{{决策动作}} 
+            & \multicolumn{1}{c}{决策后可能状态\tnote{1}} 
+            & \multicolumn{1}{c}{$r$~\tnote{2}} 
+            & \multicolumn{1}{c}{$\Delta T$} 
+            & \multicolumn{1}{c}{$\Delta C$} \\
             \hline
             
             %Line 1
-            \multicolumn{1}{|c|}{\multirow{9}{*}{\parbox{1em}{活动执行前的状态}}} 
-            & \multirow{7}{*}{$READY^U$} 
-            & \multicolumn{1}{|c}{{终止}} 
-            & \multicolumn{1}{|l}{$STOP$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c|}{$fc$} \\
-            \cline{3-7}
+            \multicolumn{1}{c}{\multirow{9}{*}{\parbox{1em}{活动执行前的状态}}} 
+			& {$READY^U$} 
+            & \multicolumn{1}{c}{{终止}} 
+            & \multicolumn{1}{l}{$STOP$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$fc$} \\
             
             %Line 2
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{\multirow{2}{*}{{不作为}}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{i0}$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{0}} 
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{0}} \\
-            %        \cline{4-5}
+            & \multicolumn{1}{c}{不作为} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{i0}$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} \\
             
             %Line 3
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0}
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|c|}{} \\
-            \cline{3-7}
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0}
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} \\
             
             %Line 4
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{\multirow{2}{*}{替换}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
-            %        \cline{4-5}
+            & \multicolumn{1}{c}{替换} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{ik}\tnote{3}$} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
             
             %Line 5
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|c|}{} \\
-            \cline{3-7}
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{c}{} \\
             
             %Line 6
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{\multirow{2}{*}{重组}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
-            %        & \multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+            & \multicolumn{1}{c}{重组} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{ik}\tnote{3}$} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+            & \multicolumn{1}{c}{\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
             
             %Line 7
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{}
-            & \multicolumn{1}{|c|}{} \\
-            \cline{2-7}
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{}
+            & \multicolumn{1}{c}{} \\
             
             %Line 8
-            \multicolumn{1}{|c|}{} 
-            & \multirow{2}{*}{$READY^N$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{无需决策}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{i0}$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{0}} 
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{0}} \\
+            \multicolumn{1}{c}{} 
+            & {$READY^N$} 
+            & \multicolumn{1}{c}{无需决策} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{i0}$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} \\
             
             %Line 9
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|c|}{} \\
-            \cline{1-7}
-            
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} \\
+
             %Line 10
-            \multicolumn{1}{|c|}{\multirow{11}{*}{\parbox{1em}{活动执行后的状态}}} 
-            & \multirow{7}{*}{$FAIL$} 
-            & \multicolumn{1}{|c}{终止} 
-            & \multicolumn{1}{|l}{$STOP$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c|}{$fc$} \\
-            \cline{3-7}
+            \multicolumn{1}{c}{\multirow{11}{*}{\parbox{1em}{活动执行后的状态}}} 
+            & {$FAIL$} 
+            & \multicolumn{1}{c}{终止} 
+            & \multicolumn{1}{l}{$STOP$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$fc$} \\
             
             %Line 11
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{\multirow{2}{*}{重试}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{i0}$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{i0}$}} 
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{$C_{i0}$}} \\
+            & \multicolumn{1}{c}{重试} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{i0}$} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{$T_{i0}$}} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{$C_{i0}$}} \\
             
             %Line 12
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{}
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{}
-            & \multicolumn{1}{|c|}{} \\
-            \cline{3-7}
+            & \multicolumn{1}{c}{}
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{}
+            & \multicolumn{1}{c}{} \\
             
             %Line 13
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{\multirow{2}{*}{替换}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{${T_{ik}}$}} 
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{${C_{ik}}$}} \\
+            & \multicolumn{1}{c}{替换} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{ik}\tnote{3}$} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{${T_{ik}}$}} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{${C_{ik}}$}} \\
             
             %Line 14 
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|c|}{} \\
-            \cline{3-7}
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{c}{} \\
             
             %Line 15
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{\multirow{2}{*}{重组}} 
-            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
-            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
-            & \multicolumn{1}{|c}{\multirow{2}{*}{${T_{i0}} + \sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & \multicolumn{1}{|c|}{\multirow{2}{*}{${C_{i0}} + \sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            %        & \multicolumn{1}{|c}{\multirow{2}{*}{$\begin{array}{l}
-            %                \sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} \\
-            %                {\kern 10pt}  + {T_{i0}}
-            %                \end{array}$}} 
-            %        & \multicolumn{1}{|c}{\multirow{2}{*}{$\begin{array}{l}
-            %                \sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} \\
-            %                {\kern 10pt}  + {C_{i0}}
-            %                \end{array}$}}  \\
-            
+            & \multicolumn{1}{c}{重组} 
+            & \multicolumn{1}{l}{$FINISH^{N/U}$} 
+            & \multicolumn{1}{c}{$R_{ik}\tnote{3}$} 
+            & \multicolumn{1}{c}{\multirow{2}{*}{${T_{i0}} + \sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+            & \multicolumn{1}{c}{\multirow{2}{*}{${C_{i0}} + \sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+
             %Line 16
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|l}{$FAIL$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{} 
-            & \multicolumn{1}{|c|}{} \\
-            \cline{2-7}
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{$FAIL$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{c}{} \\
             
             %Line 17
-            \multicolumn{1}{|c|}{} 
-            & \multirow{3}{*}{$FINISH^U$} 
-            & \multicolumn{1}{|c}{不作为} 
-            & \multicolumn{1}{|l}{后续活动$READY^U$~\tnote{4}} 
-            & \multicolumn{1}{|c}{1} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c|}{0} \\
-            \cline{3-7}
+            \multicolumn{1}{c}{} 
+            & {$FINISH^U$} 
+            & \multicolumn{1}{c}{不作为} 
+            & \multicolumn{1}{l}{后续活动$READY^U$~\tnote{4}} 
+            & \multicolumn{1}{c}{1} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} \\
             
             %Line 18
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{终止} 
-            & \multicolumn{1}{|l}{$STOP$} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c|}{$fc$} \\
-            \cline{3-7}
+            & \multicolumn{1}{c}{终止} 
+            & \multicolumn{1}{l}{$STOP$} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$fc$} \\
             
             %Line 19
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             &       
-            & \multicolumn{1}{|c}{重组} 
-            & \multicolumn{1}{|l}{后续活动$READY^{N/U}$~\tnote{4}} 
-            & \multicolumn{1}{|c}{1} 
-            & \multicolumn{1}{|c}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $} 
-            & \multicolumn{1}{|c|}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}  \\
-            \cline{2-7}
+            & \multicolumn{1}{c}{重组} 
+            & \multicolumn{1}{l}{后续活动$READY^{N/U}$~\tnote{4}} 
+            & \multicolumn{1}{c}{1} 
+            & \multicolumn{1}{c}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $} 
+            & \multicolumn{1}{c}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}  \\
             
             %Line 20
-            \multicolumn{1}{|c|}{} 
+            \multicolumn{1}{c}{} 
             & $FINISH^N$
-            & \multicolumn{1}{|c}{无需决策} 
-            & \multicolumn{1}{|l}{后续活动$READY^N$~\tnote{4}} 
-            & \multicolumn{1}{|c}{1} 
-            & \multicolumn{1}{|c}{0} 
-            & \multicolumn{1}{|c|}{0} \\
+            & \multicolumn{1}{c}{无需决策} 
+            & \multicolumn{1}{l}{后续活动$READY^N$~\tnote{4}} 
+            & \multicolumn{1}{c}{1} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} \\
             \bottomrule
             
-            %            \multicolumn{7}{l}{[1] \textit{}}  \\
-            %            \multicolumn{7}{l}{\textit{~~~~FINISH且不采用“终止”决策时才能够过渡到READY;}} \\
-            %            \multicolumn{7}{l}{[2] \textit{$r$为决策后,服务可继续执行的概率; }}  \\
-            %            \multicolumn{7}{l}{[3] \textit{$S_{ik}$为替换后的服务或者重组后最先执行的服务。 }}  \\
         \end{tabular}%
         \begin{tablenotes}
             \item[1] 决策动作前状态所带参数为$(T,C)$, 决策后状态参数变为~$(T+\Delta T, C+\Delta C)$,~ 其中~$\Delta T \ge 0$, ~$\Delta C \ge 0$~; 
@@ -496,6 +469,242 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
         \end{tablenotes}
     \end{threeparttable}
 \end{table}%
+
+%% Table generated by Excel2LaTeX from sheet 'Sheet9'
+%\begin{table}[htbp]
+%    \caption{服务状态与决策动作之间的关系(软件层面)}
+%    \vspace{-0.5em}\label{table:state_action}\centering\zihao{5}
+%    \begin{threeparttable}
+%        \begin{tabular}{llllllll}
+%            %    \begin{tabularx}{\textwidth}{llXlllll}
+%            \toprule
+%            % Header
+%            \multicolumn{1}{|c|}{} 
+%            & \multicolumn{1}{c}{状态类型\tnote{1}} 
+%            & \multicolumn{1}{|c}{{决策动作}} 
+%            & \multicolumn{1}{|c}{决策后可能状态\tnote{1}} 
+%            & \multicolumn{1}{|c}{$r$~\tnote{2}} 
+%            & \multicolumn{1}{|c}{$\Delta T$} 
+%            & \multicolumn{1}{|c|}{$\Delta C$} \\
+%            \hline
+%            
+%            %Line 1
+%            \multicolumn{1}{|c|}{\multirow{9}{*}{\parbox{1em}{活动执行前的状态}}} 
+%            & \multirow{7}{*}{$READY^U$} 
+%            & \multicolumn{1}{|c}{{终止}} 
+%            & \multicolumn{1}{|l}{$STOP$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c|}{$fc$} \\
+%            \cline{3-7}
+%            
+%            %Line 2
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{{不作为}}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{i0}$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{0}} 
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{0}} \\
+%            %        \cline{4-5}
+%            
+%            %Line 3
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0}
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{3-7}
+%            
+%            %Line 4
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{替换}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
+%            %        \cline{4-5}
+%            
+%            %Line 5
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{3-7}
+%            
+%            %Line 6
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{重组}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
+%            %        & \multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            %Line 7
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{}
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{2-7}
+%            
+%            %Line 8
+%            \multicolumn{1}{|c|}{} 
+%            & \multirow{2}{*}{$READY^N$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{无需决策}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{i0}$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{0}} 
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{0}} \\
+%            
+%            %Line 9
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{1-7}
+%            
+%            %Line 10
+%            \multicolumn{1}{|c|}{\multirow{11}{*}{\parbox{1em}{活动执行后的状态}}} 
+%            & \multirow{7}{*}{$FAIL$} 
+%            & \multicolumn{1}{|c}{终止} 
+%            & \multicolumn{1}{|l}{$STOP$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c|}{$fc$} \\
+%            \cline{3-7}
+%            
+%            %Line 11
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{重试}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{i0}$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{$T_{i0}$}} 
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{$C_{i0}$}} \\
+%            
+%            %Line 12
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{}
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{}
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{3-7}
+%            
+%            %Line 13
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{替换}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{${T_{ik}}$}} 
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{${C_{ik}}$}} \\
+%            
+%            %Line 14 
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{3-7}
+%            
+%            %Line 15
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{重组}} 
+%            & \multicolumn{1}{|l}{$FINISH^{N/U}$} 
+%            & \multicolumn{1}{|c}{$R_{ik}\tnote{3}$} 
+%            & \multicolumn{1}{|c}{\multirow{2}{*}{${T_{i0}} + \sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & \multicolumn{1}{|c|}{\multirow{2}{*}{${C_{i0}} + \sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            %        & \multicolumn{1}{|c}{\multirow{2}{*}{$\begin{array}{l}
+%            %                \sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} \\
+%            %                {\kern 10pt}  + {T_{i0}}
+%            %                \end{array}$}} 
+%            %        & \multicolumn{1}{|c}{\multirow{2}{*}{$\begin{array}{l}
+%            %                \sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} \\
+%            %                {\kern 10pt}  + {C_{i0}}
+%            %                \end{array}$}}  \\
+%            
+%            %Line 16
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|l}{$FAIL$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{} 
+%            & \multicolumn{1}{|c|}{} \\
+%            \cline{2-7}
+%            
+%            %Line 17
+%            \multicolumn{1}{|c|}{} 
+%            & \multirow{3}{*}{$FINISH^U$} 
+%            & \multicolumn{1}{|c}{不作为} 
+%            & \multicolumn{1}{|l}{后续活动$READY^U$~\tnote{4}} 
+%            & \multicolumn{1}{|c}{1} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c|}{0} \\
+%            \cline{3-7}
+%            
+%            %Line 18
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{终止} 
+%            & \multicolumn{1}{|l}{$STOP$} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c|}{$fc$} \\
+%            \cline{3-7}
+%            
+%            %Line 19
+%            \multicolumn{1}{|c|}{} 
+%            &       
+%            & \multicolumn{1}{|c}{重组} 
+%            & \multicolumn{1}{|l}{后续活动$READY^{N/U}$~\tnote{4}} 
+%            & \multicolumn{1}{|c}{1} 
+%            & \multicolumn{1}{|c}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $} 
+%            & \multicolumn{1}{|c|}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}  \\
+%            \cline{2-7}
+%            
+%            %Line 20
+%            \multicolumn{1}{|c|}{} 
+%            & $FINISH^N$
+%            & \multicolumn{1}{|c}{无需决策} 
+%            & \multicolumn{1}{|l}{后续活动$READY^N$~\tnote{4}} 
+%            & \multicolumn{1}{|c}{1} 
+%            & \multicolumn{1}{|c}{0} 
+%            & \multicolumn{1}{|c|}{0} \\
+%            \bottomrule
+%            
+%            %            \multicolumn{7}{l}{[1] \textit{}}  \\
+%            %            \multicolumn{7}{l}{\textit{~~~~FINISH且不采用“终止”决策时才能够过渡到READY;}} \\
+%            %            \multicolumn{7}{l}{[2] \textit{$r$为决策后,服务可继续执行的概率; }}  \\
+%            %            \multicolumn{7}{l}{[3] \textit{$S_{ik}$为替换后的服务或者重组后最先执行的服务。 }}  \\
+%        \end{tabular}%
+%        \begin{tablenotes}
+%            \item[1] 决策动作前状态所带参数为$(T,C)$, 决策后状态参数变为~$(T+\Delta T, C+\Delta C)$,~ 其中~$\Delta T \ge 0$, ~$\Delta C \ge 0$~; 
+%            \item[2] $r$~为决策后,服务可继续执行的概率;
+%            \item[3] $S_{ik}$~为替换后的服务或者重组后最先执行的服务，~$R_{ik}$~为此服务的可靠性。
+%            \item[4] 是否可以过渡到后续活动的~$READY$~状态，取决于流程的结构，只有后续活动的所有前序活动均处于~$FINISH$~且不采用“终止”决策时才能够过渡到~$READY$;
+%        \end{tablenotes}
+%    \end{threeparttable}
+%\end{table}%
 
 \paragraph{决策收益}
 
