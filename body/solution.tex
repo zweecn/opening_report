@@ -792,9 +792,97 @@ Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t}
 
 步骤6~返回步骤3。
 
-\subsubsection{基于XX的业务服务不确定性决策}
-\setcounter{paragraph}{0}
+\subsubsection{基于A*的业务服务不确定性决策}
+在业务层面，有比软件层面更灵活的需求和变化多端的外部环境。因此，需要比软件层面的服务多2个因素，一个是需求描述，另一个是外部环境。这两个因素会对业务层面服务产生不确定性事件。
 
+\setcounter{paragraph}{0}
+\paragraph{服务方案}
+使用服务流程表示当前执行中的服务方案，表示为如式(\ref{equation:bs_plan})所示。
+\begin{equation}\label{equation:bs_plan}
+SPlan = \left( {A,E,fc,dc,D,O} \right)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${A}$、 ${E}$、 ${fc}$、 ${dc}$ & 同软件服务；\\
+    & ${D}$ & 用户需求 \\
+    & ${O}$ & 外部环境。
+\end{tabularx}\vspace{\wordsep}
+
+\paragraph{需求描述}
+用户需求分别为局部需求和全局需求，局部(单个活动)需求如式(\ref{equation:part_demand})所示，而整体服务流程的需求如式(\ref{equation:total_demand})所示。服务质量QoS如式(\ref{equation:qos})所示。
+\begin{equation}\label{equation:part_demand}
+d_i = \left(a_i, QoS_i \right)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${a_i}$ & 第${i}$个服务； \\
+    & ${QoS_i}$ & 第${i}$个服务的QoS。
+\end{tabularx}\vspace{\wordsep}
+
+\begin{equation}\label{equation:total_demand}
+D = \left ((d_1, d_2, ..., d_n), G\_QoS \right)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${d_i}$ & 第${i}$个服务的需求； \\
+    & ${G\_QoS}$ & 整体服务流程的QoS。
+\end{tabularx}\vspace{\wordsep}
+
+\paragraph{外部环境}
+外部环境也同需求一样，需要考虑局部和整体，因此，单个活动的外部环境(局部)如式(\ref{equation:part_demand})所示，整体外部环境)如式(\ref{equation:total_out})所示。
+\begin{equation}\label{equation:part_out}
+o_i = \left(ai, rs_i \right)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${a_i}$ & 第${i}$个服务； \\
+    & ${rs_i}$ & 外部依赖资源。
+\end{tabularx}\vspace{\wordsep}
+
+\begin{equation}\label{equation:total_out}
+O = \left((o_1, o_2, ..., o_n), G\_O \right)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & ${o_i}$ & 第${i}$个活动的外部环境； \\
+    & ${G\_O}$ & 整体的外部环境。
+\end{tabularx}\vspace{\wordsep}
+
+\paragraph{不确定性事件}
+在业务层面，不确定性事件
+
+\begin{table}[htbp]
+    \caption{业务层面不确定性分类}
+    \vspace{-0.5em}\label{table:bs_uc_type}\centering\zihao{5}
+    \begin{tabularx}{\textwidth}{cXX}
+        \toprule
+        不确定性事件  & \multicolumn{1}{c}{描述} & \multicolumn{1}{c}{举例} \\
+        \midrule
+        ~$E_{31}$~ & 用户所需QoS 发生变化，包括执行时间，成本(价格)，可靠性等等。& 用户不愿意支付原来的成本价格。  \\
+        ~$E_{32}$~ & 用户所需服务发生变化，主要指某个活动用户需要指定某个服务来执行，或者指定不能由某个服务来执行。& 海运物流中，用户要求更换船公司。\\
+        ~$E_{33}$~ & 用户要求终止服务执行。 & 海运物流中，用户取消运输服务。\\
+        ~$E_{41}$~ & 服务所依赖的资源减为0或者完全失效，导致于依赖于此类资源的服务完全不能执行。 &海运物流中，所承载运输的船坏了，所运输的所有物品都不能运输了。\\
+        ~$E_{42}$~ & 服务所依赖的资源减少一部分，导致于服务依赖的资源不足，服务执行受到影响，但不是完全不能执行。
+        & 海运物流中，舱位个数预留不足，导致于货物不能全部装上，此时只能寻找其他船只的舱位同时运输。\\
+
+        \bottomrule
+    \end{tabularx}%
+\end{table}%
+
+\paragraph{服务执行的状态} 
+不确定性事件仍然如式(\ref{equation:event})所示，但是整体服务流程的状态则不能只是采用前锋线作为状态，因为业务层面，前锋线已经无法完整表示整个服务流程的执行状态，例如出现还没有执行的服务发生用户需求变化或者外部环境变化等。因此，采用所有活动上服务的状态作为一个集合表示整体服务的状态，如式(\ref{equation:bs_state_total})所示。
+
+\begin{equation}\label{equation:bs_state_total}
+state = < state(a_1),state(a_2),..., state(a_n)>
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $state(a_i)$ & 活动~$a_i$~的状态。
+\end{tabularx}\vspace{\wordsep}
+
+\paragraph{A*搜索算法}
+
+根据业务的不确定性，抽象出业务层面不确定性事件的通用特征，识别优化目标(服务执行成功的概率最大、服务执行时间最接近顾客期望时间、成本最低)，建立业务层面服务不确定性的通用模型，采用A*算法对已出现故障的服务流程搜索最优的恢复策略。
 
 \subsubsection{不确性决策的仿真系统}
 
