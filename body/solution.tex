@@ -6,11 +6,14 @@
 
 \subsection{研究方案}
 
-本课题将要研究的内容主要分为~5~个部分，首先研究软件服务和业务服务的不确定性决策，建立服务不确定性决策模型，其次基于此模型采用软件服务实现不确定性决策，然后上升到业务服务的不确定性决策，最后通过对软件服务的不确定性仿真，再进而将业务服务的不确定性决策应用在海运物流的不确定性决策中。以下则是针对这五个方面的具体研究方案。
+本课题将要研究的内容主要分为~4~个部分，首先研究软件服务和业务服务的不确定性决策，建立服务不确定性决策模型，其次基于此模型采用软件服务实现不确定性决策，然后上升到业务服务的不确定性决策，最后开发仿真系统对服务的不确定性进行仿真。
 
-\subsubsection{基于价值的服务不确定性建模} \label{sec:model_section}
+\subsubsection{服务不确定性建模} \label{sec:model_section}
 
-在一个服务环境中，针对服务运行时可能发生的不确定性(风险)进行监听，从而发现故障并采取相应的动作使得服务能够最大限度地正常执行。因此，需要对服务方案、不确定性事件、服务执行的状态进行建模，同时本课题提出不确定性事件触发关系图~(UTG)~并对此进行建模，为了度量决策的优劣，需要对决策收益(价值)进行建模。
+在一个服务环境中，针对服务运行时可能发生的不确定性(风险)进行监听，从而发现故障并采取相应的动作使得服务能够最大限度地正常执行。
+
+针对软件层服务，需要对服务方案、不确定性事件、服务执行的状态进行建模，同时本课题提出不确定性事件触发关系图~(UTG)~并对此进行建模。
+%为了度量决策的优劣，需要对决策收益(价值)进行建模。
 
 \setcounter{paragraph}{0}
 \paragraph{服务方案}
@@ -69,28 +72,28 @@ event = (t, a, EType)
     & $Type$ &事件的类型。
 \end{tabularx}\vspace{\wordsep}
 
-考虑事件的类型~$EType$~。服务执行过程中的产生的事件分为两大类：正常事件、不确定性事件。前者是一项活动按计划正常开始和正常执行结束时所发出，后者是指活动未按预期开始或结束，或者执行失败。按照事件触发的机制，可分为以下三类：
-
-\begin{itemize}
-    \item 由定时器所触发的事件，表示某活动未在期望时间点上开始执行或执行完成。服务执行引擎根据服务方案中为每个活动预设的最晚开始和最晚结束时刻对服务执行进行监控，如果到达~$LST_i$~或~$LET_i$~时刻活动未能开始或结束，将发出以下两类事件：
-    
-    $E_{01}$:~活动~$a_i$~在当前时刻~$t$~未开始执行，满足~$t>LST_i+\delta$~ (~$\delta$~是一个足够小的时间间隔)，一旦系统在~$LST_i+\delta$~时刻未发现~$a_i$~开始执行，则发出该类事件；
-    
-    $E_{02}$:~与之类似，活动~$a_i$~在当前时刻~$t$~未按计划执行结束，满足~$t>LETi+\delta$~；
-    
-    \item 由活动的开始执行所触发的事件。一旦服务活动开始执行，系统即产生该类事件。
-    
-    $E_{11}$:~活动准时/提前开始，此时~$t\le LST_i$~。
-    
-    $E_{12}$:~活动延迟开始，此时~$t>LST_i$~。
-    
-    \item 由活动执行结束所触发的事件，可分为以下两种情况：
-    
-    $E_{21}$:~活动执行失败或错误，未得到期望结果；
-    
-    $E_{22}$:~活动执行成功。~$t\le LET_i$~表示活动提前或准时执行结束，而~$t>LETi$~表示活动有延迟。
-    
-\end{itemize}
+%考虑事件的类型~$EType$~。服务执行过程中的产生的事件分为两大类：正常事件、不确定性事件。前者是一项活动按计划正常开始和正常执行结束时所发出，后者是指活动未按预期开始或结束，或者执行失败。按照事件触发的机制，可分为以下三类：
+%
+%\begin{itemize}
+%    \item 由定时器所触发的事件，表示某活动未在期望时间点上开始执行或执行完成。服务执行引擎根据服务方案中为每个活动预设的最晚开始和最晚结束时刻对服务执行进行监控，如果到达~$LST_i$~或~$LET_i$~时刻活动未能开始或结束，将发出以下两类事件：
+%    
+%    $E_{01}$:~活动~$a_i$~在当前时刻~$t$~未开始执行，满足~$t>LST_i+\delta$~ (~$\delta$~是一个足够小的时间间隔)，一旦系统在~$LST_i+\delta$~时刻未发现~$a_i$~开始执行，则发出该类事件；
+%    
+%    $E_{02}$:~与之类似，活动~$a_i$~在当前时刻~$t$~未按计划执行结束，满足~$t>LETi+\delta$~；
+%    
+%    \item 由活动的开始执行所触发的事件。一旦服务活动开始执行，系统即产生该类事件。
+%    
+%    $E_{11}$:~活动准时/提前开始，此时~$t\le LST_i$~。
+%    
+%    $E_{12}$:~活动延迟开始，此时~$t>LST_i$~。
+%    
+%    \item 由活动执行结束所触发的事件，可分为以下两种情况：
+%    
+%    $E_{21}$:~活动执行失败或错误，未得到期望结果；
+%    
+%    $E_{22}$:~活动执行成功。~$t\le LET_i$~表示活动提前或准时执行结束，而~$t>LETi$~表示活动有延迟。
+%    
+%\end{itemize}
 
 \paragraph{服务执行的状态} 
 
@@ -113,28 +116,29 @@ state(a_i)=STATE\_TYPE^{N/U}<T, C>
 
 式(\ref{equation:state})可简写为~$STATE\_TYPE^{N/U}$~。~$STATE\_TYPE$~可为以下6种类型之一，对~$NOT\_READY$~、~$FAIL$~、~$CANCEL$~三类状态来说，不存在正常或不正常的分类，可不需标注上标~$N$~或~$U$~。
 
-\begin{itemize}
-    
-    \item ~($NOT\_READY$):~$a_i$~至少有一个前序活动尚未执行结束，故~$a_i$~尚无开始执行的条件，即~$\exists a' \in \{ {a_j}|\exists e = ( {{a_j},{a_i}} )\} ,state ( {a'} ) \ne FINISH \Rightarrow state ( {{a_i}} ) = NOT\_READY$~。这是所有活动的缺省状态。
-    
-    \item 待执行($READY$):~若~$a_i$~的所有前序活动均已执行完毕(处于~$FINISH$~状态)，且对这些活动的决策动作均非“终止”时，ai具备了执行的先决条件，进入该状态，即~$\forall a' \in \{ {a_j}|\exists e = ( {{a_j},{a_i}} )\} ,state ( {a'} ) = FINISH \wedge Action(a') \ne STOP \Rightarrow state ( {{a_i}} ) = READY$~。当~$a_i$~处于READY状态且产生~$E_{01}$~时，它仍然处于~$READY$~状态；
-    
-    \item 执行中($EXEC$):~当本活动产生~$E_{11}$~、~$E_{02}$~事件时，~$a_i$~正在执行中，但尚未结束；
-    
-    \item 执行后失败($FAIL$):~本活动产生~$E_{21}$~事件，~$a_i$~执行结束，但未得到期望输出，执行失败；
-    
-    \item 执行后成功~($FINISH$):~本活动产生~$E_{22}$~事件，~$a_i$~执行结束，已得到期望结果；
-    
-    \item 取消~($CANCEL$):~当某活动处于~$READYU$~、~$FINISHU$~或~$FAIL$~状态，并且决策动作将该活动终止时，~$a_i$~被人为取消，服务方案停止执行而完全失败。
-\end{itemize}
+%\begin{itemize}
+%    
+%    \item ~($NOT\_READY$):~$a_i$~至少有一个前序活动尚未执行结束，故~$a_i$~尚无开始执行的条件，即~$\exists a' \in \{ {a_j}|\exists e = ( {{a_j},{a_i}} )\} ,state ( {a'} ) \ne FINISH \Rightarrow state ( {{a_i}} ) = NOT\_READY$~。这是所有活动的缺省状态。
+%    
+%    \item 待执行($READY$):~若~$a_i$~的所有前序活动均已执行完毕(处于~$FINISH$~状态)，且对这些活动的决策动作均非“终止”时，ai具备了执行的先决条件，进入该状态，即~$\forall a' \in \{ {a_j}|\exists e = ( {{a_j},{a_i}} )\} ,state ( {a'} ) = FINISH \wedge Action(a') \ne STOP \Rightarrow state ( {{a_i}} ) = READY$~。当~$a_i$~处于READY状态且产生~$E_{01}$~时，它仍然处于~$READY$~状态；
+%    
+%    \item 执行中($EXEC$):~当本活动产生~$E_{11}$~、~$E_{02}$~事件时，~$a_i$~正在执行中，但尚未结束；
+%    
+%    \item 执行后失败($FAIL$):~本活动产生~$E_{21}$~事件，~$a_i$~执行结束，但未得到期望输出，执行失败；
+%    
+%    \item 执行后成功~($FINISH$):~本活动产生~$E_{22}$~事件，~$a_i$~执行结束，已得到期望结果；
+%    
+%    \item 取消~($CANCEL$):~当某活动处于~$READYU$~、~$FINISHU$~或~$FAIL$~状态，并且决策动作将该活动终止时，~$a_i$~被人为取消，服务方案停止执行而完全失败。
+%\end{itemize}
 
-事件或决策动作导致活动的状态变化，状态之间的转换关系如图~\ref{figure:state_trans}~所示。
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width = 0.6\textwidth]{state_trans}
-    \caption{服务活动的状态转换关系}\label{figure:state_trans}
-    \vspace{-1em}
-\end{figure}
+事件或决策动作导致活动的状态变化。
+%状态之间的转换关系如图~\ref{figure:state_trans}~所示。
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width = 0.6\textwidth]{state_trans}
+%    \caption{服务活动的状态转换关系}\label{figure:state_trans}
+%    \vspace{-1em}
+%\end{figure}
 
 ~b)~服务执行的整体状态
 
@@ -160,13 +164,13 @@ $\forall {a_i} \in FL,state({a_i}) \in \{ READ{Y^{N/U}},{\rm{ }}EXE{C^{N/U}},{\r
     \vspace{-1em}
 \end{figure}
 
-~$state(SPlan)$~可分为几类：
-\begin{itemize}
-    \item 执行前: ~$predecessor(FL) = \emptyset ,$ 对 $ \forall {a_i} \in FL,state({a_i}) = READ{Y^N}$~；
-    \item 执行中: ~$FL \ne \emptyset ,predecessor(FL) \ne \emptyset ,successor(FL) \ne \emptyset $~；
-    \item 执行结束(成功): ~$FL = \emptyset ,successor(FL) = \emptyset ,$ 对 $\forall {a_i} \in predecessor(FL),state({a_i}) = FINIS{H^{N/U}}$~；
-    \item 执行结束(失败): ~$FL \ne \emptyset ,$ 且 $\exists {a_i} \in FL,state({a_i}) = FAIL$~；
-\end{itemize}
+%~$state(SPlan)$~可分为几类：
+%\begin{itemize}
+%    \item 执行前: ~$predecessor(FL) = \emptyset ,$ 对 $ \forall {a_i} \in FL,state({a_i}) = READ{Y^N}$~；
+%    \item 执行中: ~$FL \ne \emptyset ,predecessor(FL) \ne \emptyset ,successor(FL) \ne \emptyset $~；
+%    \item 执行结束(成功): ~$FL = \emptyset ,successor(FL) = \emptyset ,$ 对 $\forall {a_i} \in predecessor(FL),state({a_i}) = FINIS{H^{N/U}}$~；
+%    \item 执行结束(失败): ~$FL \ne \emptyset ,$ 且 $\exists {a_i} \in FL,state({a_i}) = FAIL$~；
+%\end{itemize}
 
 \paragraph{不确定性触发关系图~(UTG)~} 
 不确定性本身蕴含着服务的一种状态(不正常状态)，它是可以传播的，若不采取任何对策(不作为)，任由某一不确定性蔓延下去，将会造成更严重的后果(成本溢出、时间延误、执行失败)。即使采取了某一种对策，弥补了某些潜在后果，但可能不会完全弥补，因此也会扩散。这里提出不确定性触发关系图~(Uncertainty Triggering Graph, UTG)~表达~UC~之间的触发关系。利用~UTG~来计算不确定性事件及决策动作所引发的直接和间接代价。
@@ -198,42 +202,144 @@ UTG可表示为包含两类节点和两类边的有向图~UTG = ~$(rs, SS, AS, T
     \vspace{-1em}
 \end{figure}
 
-如图~\ref{figure:utg_example}~给出一个小例子。假设服务方案是由三个活动~$(a_1, a_2, a_3)$~串行构成的流程，图~(a)~表示活动~$a_1$~在~$READY^U$~状态下的~UTG~，~(b)~表示活动~$a_1$~在~$FINISH^U$~状态下的~UTG~，~(c)~表示~$a_1$~在~$FAIL$~状态下的~UTG~。
+%如图~\ref{figure:utg_example}~给出一个小例子。假设服务方案是由三个活动~$(a_1, a_2, a_3)$~串行构成的流程，图~(a)~表示活动~$a_1$~在~$READY^U$~状态下的~UTG~，~(b)~表示活动~$a_1$~在~$FINISH^U$~状态下的~UTG~，~(c)~表示~$a_1$~在~$FAIL$~状态下的~UTG~。
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width = 0.5\textwidth]{utg_example}
+%    \caption{~UTG~的三个例子}\label{figure:utg_example}
+%    \vspace{-1em}
+%\end{figure}
+
+%~UTG~的结构与服务方案的流程结构密切相关。当出现不确定性事件之后，更新相关活动、状态和前锋线的信息，进而根据表~\ref{table:state_action}~的相关信息生成~UTG~。
+
+%\paragraph{决策收益(价值)} 
+%
+%各种动作的目标是“使不确定性造成的损失尽可能小”，但并不保证服务一定能够从异常状态完全回到正常轨道，因此需要分析每种决策对服务执行的影响，计算其损失/受益，以此作为优化决策的依据。
+%
+%决策动作对原有的服务方案进行了调整，对它的收益度量从以下三个因素入手：
+%
+%\begin{itemize}
+%
+%\item 使服务可以继续向后执行的概率考虑服务执行失败的赔偿~$fc$~。一般情况下服务失败后需支付给顾客的补偿较高，因此决策动作应尽可能保证服务可以继续执行下去。除了补偿上的考虑之外，还考虑到服务执行失败可能造成的客户流失。设决策动作之后，受影响的活动(可能为当前活动，也可能为下一步活动)执行成功的概率为~$r$~，那么该部分代价是~$(1-r) \times fc$~。
+%
+%\item 若造成时间延迟而需支付的延误成本。设延误时间为~$\Delta T$~，那么该部分的代价是~$\Delta T \times dc$~。
+%
+%\item 所引入的新成本~$\Delta C$. 对出现故障的服务进行恢复，势必会带来额外的服务成本，例如原来的服务不可用后替换为一个新的服务，而这个新的服务的价格即是引入的新成本。
+%
+%\end{itemize}
+%
+%因此，在当前状态下state采取决策动作action所带来的总收益如式(\ref{equation:reward})所示。
+%
+%\begin{equation}\label{equation:reward}
+%Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
+%\end{equation}
+%
+%面向不确定性的优化决策的目标可表述为：以最小的时间延迟和成本溢出，使服务可最大概率的进入到“成功结束”状态。
+
+针对业务层服务，与软件层服务有较大区别，因此业务层服务不确定性建模将有别于软件层服务建模。业务层面服务不确定性包括软件层面的服务不确定性，因此，在业务层面执行服务时若出现软件层服务不确定性，可转化为软件层的服务不确定性决策。同时，业务服务有软件服务不具备的特有性质，站在中间人的角度，从用户需求和服务资源两个方面建立业务层服务不确定性模型。
+
+\setcounter{paragraph}{0}
+\paragraph{业务层服务需求和资源建模}
+
+需求和资源的分配如图~\ref{figure:user_resource}~所示，左边是一系列资源，右边为多个用户，发生不确定性之前，资源以及存在一个分配，满足所有用户的需求，服务提供者期望在服务执行结束后获得一定的收益。若发生不确定性，则需求可能不被满足，服务提供者也无法获得收益，这即是在业务层服务不确定性需要解决的问题。
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width = 0.5\textwidth]{utg_example}
-    \caption{~UTG~的三个例子}\label{figure:utg_example}
+    \includegraphics[width = 0.3\textwidth]{user_resource}
+    \caption{用户资源的分配}\label{figure:user_resource}
     \vspace{-1em}
 \end{figure}
 
-~UTG~的结构与服务方案的流程结构密切相关。当出现不确定性事件之后，更新相关活动、状态和前锋线的信息，进而根据表~\ref{table:state_action}~的相关信息生成~UTG~。
+形式化地，资源可表示为如式(\ref{equation:resource})所示的一个向量，向量的每一个维度表示资源的类型。
 
-\paragraph{决策收益(价值)} 
-
-各种动作的目标是“使不确定性造成的损失尽可能小”，但并不保证服务一定能够从异常状态完全回到正常轨道，因此需要分析每种决策对服务执行的影响，计算其损失/受益，以此作为优化决策的依据。
-
-决策动作对原有的服务方案进行了调整，对它的收益度量从以下三个因素入手：
-
-\begin{itemize}
-
-\item 使服务可以继续向后执行的概率考虑服务执行失败的赔偿~$fc$~。一般情况下服务失败后需支付给顾客的补偿较高，因此决策动作应尽可能保证服务可以继续执行下去。除了补偿上的考虑之外，还考虑到服务执行失败可能造成的客户流失。设决策动作之后，受影响的活动(可能为当前活动，也可能为下一步活动)执行成功的概率为~$r$~，那么该部分代价是~$(1-r) \times fc$~。
-
-\item 若造成时间延迟而需支付的延误成本。设延误时间为~$\Delta T$~，那么该部分的代价是~$\Delta T \times dc$~。
-
-\item 所引入的新成本~$\Delta C$. 对出现故障的服务进行恢复，势必会带来额外的服务成本，例如原来的服务不可用后替换为一个新的服务，而这个新的服务的价格即是引入的新成本。
-
-\end{itemize}
-
-因此，在当前状态下state采取决策动作action所带来的总收益如式(\ref{equation:reward})所示。
-
-\begin{equation}\label{equation:reward}
-Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
+\begin{equation}\label{equation:resource}
+s = (s_1, s_2, ..., s_n)
 \end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $s_i$ & 第~$i$~个类型的资源。
+\end{tabularx}\vspace{\wordsep}
+
+一个用户的需求可以看作多这多个资源的需求，即可表示为如式(\ref{equation:demand})所示的一个向量。
+\begin{equation}\label{equation:demand}
+w = (w_1, w_2, ..., w_n)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $w_i$ & 对第~$i$~个类型的资源需求重要程度，满足$\sum\limits_{i = 1}^n {{w_i}}  = 1$
+\end{tabularx}\vspace{\wordsep}
+
+则用户对资源的总体需求需要满足的条件如式(\ref{equation:demand_total})所示。
+\begin{equation}\label{equation:demand_total}
+\sum\limits_{i = 1}^n {{w_i}{s_i}}  \ge D
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $D$ & 用户对资源的总需求数量。
+\end{tabularx}\vspace{\wordsep}
+
+针对多用户多需求的情况，资源分配则可表示为一个矩阵，如式(\ref{equation:resource_arr})所示，其中行维度是一个用户需求，列维度为资源种类。
+
+\begin{equation}\label{equation:resource_arr}
+S = \begin{array}{*{20}{c}}
+{{s_{11}}}&{{s_{12}}}& \cdots &{{s_{1n}}}\\
+{{s_{21}}}&{{s_{22}}}& \cdots &{{s_{2n}}}\\
+\vdots & \vdots & \ddots & \vdots \\
+{{s_{m1}}}&{{s_{m2}}}& \cdots &{{s_{mn}}}
+\end{array}
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $s_{ij}$ & 用户~$i$~分配资源~$j$~的数量。
+\end{tabularx}\vspace{\wordsep}
+
+很显然，式(\ref{equation:resource_arr})的一列之和为每个类型资源总数，一行中按用户需求比重加权求和为分配到一个用户上的资源总数。
+
+\paragraph{用户需求不确定性描述}
+
+用户在使用服务的过程中，需求难免会发生变化。例如，海运物流中，用户可能发生增加(减少、取消)货物舱位的需求，此时发生的不确定性，船公司需要作出决策，使得既能满足用户需求又能使得自己的收益最大化(或减少得最少)。体现在如式(\ref{equation:demand_total})所示的变量~$D$~会发生变化。更细节地，用户可能针对每一种类型的需求发生不同的变化，例如用户需求冷藏集装箱的数量增多，而普通集装箱的数量减少。那么如式(\ref{equation:resource})所示的具体集装箱分配策略即需要改变。
+
+形式化地，不确定性事件表示为如式(\ref{equation:demand_event})所示。其中当~$j=0$~时表示用户不关心什么类型的资源增加/减少，只关心资源总量的增加/减少。
+\begin{equation}\label{equation:demand_event}
+demand\_event = (i, j, \pm n)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $i$ & 第$i$个用户,取值范围$1 \cdots n$；\\
+    & $j$ & 第$j$个类型的资源，取值范围$0 \cdots n$；\\
+    & $\pm n$ & 数量增加/减少$n$；
+\end{tabularx}\vspace{\wordsep}
+
+\paragraph{服务资源不确定性描述}
+
+资源同样也会发生变化，例如集装箱损坏了导致集装箱数量减少，或者陆运过程中其中部分车辆临时损坏导致于无法继续运货，体现在如式(\ref{equation:resource})所示中各个变量都可能发生变化。形式化地，定义为如式(\ref{equation:resource_event})所示。
+
+\begin{equation}\label{equation:resource_event}
+resource\_event = (j, \pm n)
+\end{equation}
+\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+    式中
+    & $j$ & 第$j$类资源，取值范围$1 \cdots n$；\\
+    & $\pm n$ & 数量增加/减少$n$；
+\end{tabularx}\vspace{\wordsep}
+
+需要注意的是，用户的需求发生变化一般发生在服务执行之前，而资源的变化可能发生在执行过程中，也可能发生在服务执行之前。
+%
+%根据以上三点介绍，可以形式化的表达需要解决的问题。
+%
+%问题的输入：当前的资源分配方案、不确定性事件列表
+%
+%问题的输出：资源重新分配方案
+%
+%优化目标：最大化服务提供者的收益，最小化用户提供的成本。
+%
+%形式化地，问题表示为
+
+
+\subsubsection{基于价值的软件层服务不确定性决策}
 
 面向不确定性的优化决策的目标可表述为：以最小的时间延迟和成本溢出，使服务可最大概率的进入到“成功结束”状态。
-
-\subsubsection{基于~MDP~的软件服务不确定性决策}
 
 在软件服务环境中，针对服务运行时可能发生的不确定性(风险)进行监听，从而发现故障并采取相应的动作使得服务能够最大限度地正常执行。因此，在\ref{sec:model_section}节介绍的基于价值的服务不确定性建模的基础上，针对软件服务层面对事件、决策和状态之间以及它们之间的关系进行建模，最后基于~MDP~对软件服务不确定性进行求解优化。
 
@@ -706,9 +812,11 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
 %    \end{threeparttable}
 %\end{table}%
 
-\paragraph{决策收益}
+\paragraph{决策收益(价值)}
 
-在基于~MDP~的软件服务不确定性决策方法中，根据~\ref{sec:model_section}~节所述的几种决策收益的计算方案，得出如下基于~MDP~的服务不确定性决策收益的计算方式：
+各种动作的目标是“使不确定性造成的损失尽可能小”，但并不保证服务一定能够从异常状态完全回到正常轨道，因此需要分析每种决策对服务执行的影响，计算其损失/受益，以此作为优化决策的依据。
+
+决策动作对原有的服务方案进行了调整，对它的收益度量从以下三个因素入手：
 
 \begin{itemize}
 
@@ -721,230 +829,337 @@ Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
 \end{itemize}
 
 因此，在当前状态~state~采取决策动作~action~所带来的总收益即可根据式(\ref{equation:reward})计算得出。
+\begin{equation}\label{equation:reward}
+Reward =  - ((1 - r) \times fc + \Delta T \times dc + \Delta C)
+\end{equation}
 
 \paragraph{基于~MDP~的不确定性决策方法}
 
 马尔科夫决策过程~(MDP)\citeup{liuke2004}~将马尔可夫过程与确定性的动态规划相结合，决策者周期或连续观察随机动态系统，序贯的做出决策，系统下一步的状态是随机的，并且其状态转移概率具有马尔可夫性。决策者根据新观察到的状态，再作新的决策，依此反复地进行。通过此种决策，使系统运行的全过程达到某种最优运行效果，选取控制系统发展的最优策略。
 
-~a)~{模型}
+%~a)~{模型}
 
 服务执行过程中面临的各种不确定性以及对其所做出的决策，符合~Markov~决策过程的定义。因此，采用基于~MDP~的方法进行服务自适应演化过程中的决策，根据当前服务执行状态、发生的不确定性事件、不确定性事件之间的触发关系~(UTG)~，考虑未来的收益和代价，做出当前不确定状态下的最优决策。
 
-按照~MDP~的数学模型，需要首先建立决策时刻~$T$~、服务状态~$S$~、决策动作~$A$~、转移概率~$P$~、代价~$Reward$~的数学表达。
-\begin{itemize}
+%按照~MDP~的数学模型，需要首先建立决策时刻~$T$~、服务状态~$S$~、决策动作~$A$~、转移概率~$P$~、代价~$Reward$~的数学表达。
+%\begin{itemize}
+%
+%\item 时刻~$T$~: 前服务环节执行中/执行后发生不确定事件、或者预知到尚未执行的环节将会发生不确定事件时开始决策，此时为时刻0。如图~\ref{figure:many_utg_tree}~所示的多棵~UTG~连接形成完全触发关系图，叶子结点的状态处于最终时刻~$V$~，“完全触发关系图”的层数是周期个数。这是一个不定周期的时刻序列。
+%
+%\item 状态~$S$~: 服务前锋线上的所有活动的状态即可表示为服务流程的状态，原因是前锋线上的活动状态已知，则可知所有活动的状态。将服务流程的所有活动的六种状态组成一个状态集合，形成~MDP~状态~$state$~, 即~$state =  < state({a_1}),state({a_2}), \ldots ,state({a_n}) >$~，每个状态附着两个参数(~$T$~和~$C$~)；
+%
+%\item 动作~$A$~：共有终止、不作为、重试、替换、重组五个动作，不同状态下可执行的动作集合有所不同(见表~\ref{table:state_action}~)。
+%
+%\item 转移概率~$P$~：转移概率由当前的决策动作和服务活动的状态联合决定，即~$p(state_j|state_i,action)$~的值有以下几类情况：
+%\begin{itemize}
+%    \item ~$1;~if~action = continue/terminate$~
+%    \item ~$reliability;~if~action = retry/substitute/re-compose~ \& ~ state_j = FINIS{H^{N/U}}$~
+%    \item ~$1 - reliability;~if~action = retry/substitute/re-compose ~\& ~ state_j = FAIL$~
+%\end{itemize}
+%其中~$reliability$~指的是将要执行的服务端可靠性，若有多个服务，则是多个服务可靠性之积。
+%
+%\item 报酬函数~$Reward$~：在~\ref{sec:model_section}~节中给出。
+%
+%\end{itemize}
 
-\item 时刻~$T$~: 前服务环节执行中/执行后发生不确定事件、或者预知到尚未执行的环节将会发生不确定事件时开始决策，此时为时刻0。如图~\ref{figure:many_utg_tree}~所示的多棵~UTG~连接形成完全触发关系图，叶子结点的状态处于最终时刻~$V$~，“完全触发关系图”的层数是周期个数。这是一个不定周期的时刻序列。
-
-\item 状态~$S$~: 服务前锋线上的所有活动的状态即可表示为服务流程的状态，原因是前锋线上的活动状态已知，则可知所有活动的状态。将服务流程的所有活动的六种状态组成一个状态集合，形成~MDP~状态~$state$~, 即~$state =  < state({a_1}),state({a_2}), \ldots ,state({a_n}) >$~，每个状态附着两个参数(~$T$~和~$C$~)；
-
-\item 动作~$A$~：共有终止、不作为、重试、替换、重组五个动作，不同状态下可执行的动作集合有所不同(见表~\ref{table:state_action}~)。
-
-\item 转移概率~$P$~：转移概率由当前的决策动作和服务活动的状态联合决定，即~$p(state_j|state_i,action)$~的值有以下几类情况：
-\begin{itemize}
-    \item ~$1;~if~action = continue/terminate$~
-    \item ~$reliability;~if~action = retry/substitute/re-compose~ \& ~ state_j = FINIS{H^{N/U}}$~
-    \item ~$1 - reliability;~if~action = retry/substitute/re-compose ~\& ~ state_j = FAIL$~
-\end{itemize}
-其中~$reliability$~指的是将要执行的服务端可靠性，若有多个服务，则是多个服务可靠性之积。
-
-\item 报酬函数~$Reward$~：在~\ref{sec:model_section}~节中给出。
-
-\end{itemize}
-
-~b)~{算法}
-
-基于上述五个方面的基本定义，采用有限阶段向后递归迭代~MDP~算法进行最优决策序列的求解，得到对当前服务的决策动作。
+%~b)~{算法}
+%
+%基于上述五个方面的基本定义，采用有限阶段向后递归迭代~MDP~算法进行最优决策序列的求解，得到对当前服务的决策动作。
 
 算法：基于~MDP~的服务不确定性优化决策
 
 输入：服务方案~$SPlan$~、与当前发生的不确定性事件相关的活动~$activity$~、
-~$SPlan$~中各个活动的当前状态、服务执行的目标状态；
+~$SPlan$~中各个活动的当前状态、服务执行的目标状态
 
 输出：最优马氏策略及其成本
 
-步骤~1~~ 根据出现故障的活动~$a$~，按照表~\ref{table:state_action}~构造~UTG~，并将多棵~UTG~连接形成“完全触发关系图”，从而形成状态转移表；
+算法的输入输出给定，采用已有的算法求解即可。
 
-步骤~2~~ 定义当前的不确定状态为时刻0，以此生成向后衍生的UTG，直至服务方案最后一个结点，此时为最终时刻V。从而生成0到~$V$~的~$V+1$~个时刻的若干个状态、若干个动作、相应的转移概率报酬；
+%步骤~1~~ 根据出现故障的活动~$a$~，按照表~\ref{table:state_action}~构造~UTG~，并将多棵~UTG~连接形成“完全触发关系图”，从而形成状态转移表；
+%
+%步骤~2~~ 定义当前的不确定状态为时刻0，以此生成向后衍生的UTG，直至服务方案最后一个结点，此时为最终时刻V。从而生成0到~$V$~的~$V+1$~个时刻的若干个状态、若干个动作、相应的转移概率报酬；
+%
+%步骤~3~~ 令~$t=V$~，且对所有~$V$~时刻的状态~$state_V \in S$~，令~${u_V}( {state_V} ) = Reward_V( {state_V} )$;
+%
+%步骤~4~~ 如果~$t=0$~，则~$\pi  = (f_0,f_1,\ldots ,f_{V-1})$~为最优的马氏策略，而~${u_0}( state_0)$~为最优的值函数，算法停止。否则，令~$t=t–1$~，进入步骤5；
+%
+%步骤~5~~ 对所有~$state_t \in S$~，计算
+%
+%\begin{equation}\label{equation:backward_mdp}
+%\begin{array}{l}
+%{u_t}(stat{e_t}) = \mathop {\max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
+%{\rm{                        }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
+%\end{array}
+%\end{equation}
+%
+%并记集合
+%
+%\begin{equation}\label{equation:backward_mdp_arg}
+%\begin{array}{l}
+%Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
+%{\rm{                       }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
+%\end{array}
+%\end{equation}
+%
+%任意取~$f_t(state_t) \in Action_t(state_t)$~，于是定义了~$t$~时刻的决策规则~$f_t$~。而0时刻的决策~$f_0$~则是对当前故障时刻的故障状态采取最优的直接动作。
+%
+%步骤~6~~ 返回步骤3。
 
-步骤~3~~ 令~$t=V$~，且对所有~$V$~时刻的状态~$state_V \in S$~，令~${u_V}( {state_V} ) = Reward_V( {state_V} )$;
+\subsubsection{基于价值的业务层服务不确定性决策}
 
-步骤~4~~ 如果~$t=0$~，则~$\pi  = (f_0,f_1,\ldots ,f_{V-1})$~为最优的马氏策略，而~${u_0}( state_0)$~为最优的值函数，算法停止。否则，令~$t=t–1$~，进入步骤5；
-
-步骤~5~~ 对所有~$state_t \in S$~，计算
-
-\begin{equation}\label{equation:backward_mdp}
-\begin{array}{l}
-{u_t}(stat{e_t}) = \mathop {\max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
-{\rm{                        }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
-\end{array}
-\end{equation}
-
-并记集合
-
-\begin{equation}\label{equation:backward_mdp_arg}
-\begin{array}{l}
-Actio{n_t}(stat{e_t}) = \mathop {\arg \max }\limits_{action \in Action(stat{e_t})} \{ Rewar{d_t}(stat{e_t},action)\\
-{\rm{                       }} + \sum\limits_{stat{e_{t + 1}} \in S} {{p_t}(stat{e_{t + 1}}|stat{e_t},action){u_{t + 1}}(stat{e_{t + 1}})} \} 
-\end{array}
-\end{equation}
-
-任意取~$f_t(state_t) \in Action_t(state_t)$~，于是定义了~$t$~时刻的决策规则~$f_t$~。而0时刻的决策~$f_0$~则是对当前故障时刻的故障状态采取最优的直接动作。
-
-步骤~6~~ 返回步骤3。
-
-\subsubsection{基于A*的业务服务不确定性决策}
-在业务层面，有比软件层面更灵活的需求和变化多端的外部环境。因此，需要比软件层面的服务多2个因素，一个是需求描述，另一个是外部环境。这两个因素会对业务层面服务产生不确定性事件。
+业务层面的服务不确定性决策的目标可描述为：最大化服务提供者的收益，最小化用户提供的成本，满足用户需求变化和资源得到充分利用。
 
 \setcounter{paragraph}{0}
-\paragraph{服务方案}
-使用服务流程表示当前执行中的服务方案，表示为如式(\ref{equation:bs_plan})所示。
-\begin{equation}\label{equation:bs_plan}
-SPlan = \left( {A,E,fc,dc,D,O} \right)
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & ${A}$、 ${E}$、 ${fc}$、 ${dc}$ & 同软件服务；\\
-    & ${D}$ & 用户需求 \\
-    & ${O}$ & 外部环境。
-\end{tabularx}\vspace{\wordsep}
+\paragraph{决策动作}
 
-\paragraph{需求描述}
-用户需求分别为局部需求和全局需求，局部(单个活动)需求如式(\ref{equation:part_demand})所示，而整体服务流程的需求如式(\ref{equation:total_demand})所示。服务质量QoS如式(\ref{equation:qos})所示。
-\begin{equation}\label{equation:part_demand}
-d_i = \left(a_i, QoS_i \right)
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & ${a_i}$ & 第${i}$个服务； \\
-    & ${QoS_i}$ & 第${i}$个服务的QoS。
-\end{tabularx}\vspace{\wordsep}
+当用户需求发生变化的时候，服务提供者只能面对三种决策：
 
-\begin{equation}\label{equation:total_demand}
-D = \left ((d_1, d_2, ..., d_n), G\_QoS \right)
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & ${d_i}$ & 第${i}$个服务的需求； \\
-    & ${G\_QoS}$ & 整体服务流程的QoS。
-\end{tabularx}\vspace{\wordsep}
+\begin{itemize}
 
-\paragraph{外部环境}
-外部环境也同需求一样，需要考虑局部和整体，因此，单个活动的外部环境(局部)如式(\ref{equation:part_demand})所示，整体外部环境)如式(\ref{equation:total_out})所示。
-\begin{equation}\label{equation:part_out}
-o_i = \left(ai, rs_i \right)
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & ${a_i}$ & 第${i}$个服务； \\
-    & ${rs_i}$ & 外部依赖资源。
-\end{tabularx}\vspace{\wordsep}
+\item 
+完全满足用户需求，这会给服务提供者带来收益，用户也会为新需求付出新的成本；
 
-\begin{equation}\label{equation:total_out}
-O = \left((o_1, o_2, ..., o_n), G\_O \right)
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & ${o_i}$ & 第${i}$个活动的外部环境； \\
-    & ${G\_O}$ & 整体的外部环境。
-\end{tabularx}\vspace{\wordsep}
+\item 部分满足用户需求，这会给服务提供者带来部分收益并受到部分惩罚，用户也会为新需求支付新的成本，若服务提供者的决策调整(资源重组)会影响其他顾客，则会赔偿其他顾客；
 
-\paragraph{不确定性事件}
-在业务层面，不确定性事件众多，不便统一，在不同的领域不确定性则是不同的表现形式。本课题中，站在服务使用者的角度，将服务不确定性进行分类，如表~\ref{table:bs_uc_type}~所示。
+\item 完全不满足用户需求，服务提供者无法得到新的收益，可以保证目前的收益不受影响，但同时也在将来可能失去一个客户。
 
+\end{itemize}
+
+\paragraph{决策收益}
+
+在这里考虑的决策收益不单只是服务提供者或用户的收益，而是站在broker角度，尽可能争取服务提供者和用户双赢的结果，但是事实往往不是这样，因此需要在这两个目标之间寻求折衷。
+
+业务服务的不确定性决策动作如表~\ref{table:state_action_business}~所示，由此可以得出用户需要支付的新成本(即服务提供者可以获得的新收益)为~$\Delta Q$~，而服务提供者需要支出的新成本为~$\Delta P + \Delta F$~。决策目标变成了如式(\ref{equation:activity})所示。
+
+
+
+% Table generated by Excel2LaTeX from sheet 'Sheet9'
 \begin{table}[htbp]
-    \caption{业务层面不确定性分类}
-    \vspace{-0.5em}\label{table:bs_uc_type}\centering\zihao{5}
-    \begin{tabularx}{\textwidth}{cXX}
-        \toprule
-        不确定性事件  & \multicolumn{1}{c}{描述} & \multicolumn{1}{c}{举例} \\
-        \midrule
-        ~$E_{31}$~ & 用户所需QoS 发生变化，包括执行时间，成本(价格)，可靠性等等。& 用户不愿意支付原来的成本价格。  \\
-        ~$E_{32}$~ & 用户所需服务发生变化，主要指某个活动用户需要指定某个服务来执行，或者指定不能由某个服务来执行。& 海运物流中，用户要求更换船公司。\\
-        ~$E_{33}$~ & 用户要求终止服务执行。 & 海运物流中，用户取消运输服务。\\
-        ~$E_{41}$~ & 服务所依赖的资源减为0或者完全失效，导致于依赖于此类资源的服务完全不能执行。 &海运物流中，所承载运输的船坏了，所运输的所有物品都不能运输了。\\
-        ~$E_{42}$~ & 服务所依赖的资源减少一部分，导致于服务依赖的资源不足，服务执行受到影响，但不是完全不能执行。
-        & 海运物流中，舱位个数预留不足，导致于货物不能全部装上，此时只能寻找其他船只的舱位同时运输。\\
+    \caption{业务层面服务不确定性决策}
+    \vspace{-0.5em}\label{table:state_action_business}\centering\zihao{5}
+    \begin{threeparttable}
+        \begin{tabular}{lllllll}
+            %    \begin{tabularx}{\textwidth}{llXlllll}
+            \toprule
+            % Header
+            & \multicolumn{1}{c}{不确定性原因} 
+            & \multicolumn{1}{c}{{决策动作}} 
+            & \multicolumn{1}{c}{决策结果} 
+            & \multicolumn{1}{c}{用户支付新成本$\Delta Q$} 
+            & \multicolumn{1}{c}{提供者支付新成本$\Delta P$} 
+            & \multicolumn{1}{c}{赔偿$\Delta F$} \\
+            \hline
 
-        \bottomrule
-    \end{tabularx}%
+            & \multicolumn{1}{c}{资源变化} 
+            & \multicolumn{1}{l}{购买新资源} 
+            & \multicolumn{1}{c}{正常执行} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{s_k}{p_k}}$\tnote{1}} 
+            & \multicolumn{1}{c}{0} \\
+            
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{不作为} 
+            & \multicolumn{1}{c}{部分失败\tnote{2}} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{f_k}}$\tnote{3}} \\
+            
+            & \multicolumn{1}{c}{需求变化} 
+            & \multicolumn{1}{l}{完全满足} 
+            & \multicolumn{1}{c}{正常执行\tnote{2}} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{s_k}{q_k}}$\tnote{4}} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{s_k}{p_k}}$} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{f_k}}$} \\
+            
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{部分满足} 
+            & \multicolumn{1}{c}{部分失败\tnote{2}} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{s_k}{q_k}}$\tnote{4}} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{f_k}}$} \\
+            
+            & \multicolumn{1}{c}{} 
+            & \multicolumn{1}{l}{完全不满足} 
+            & \multicolumn{1}{c}{执行失败\tnote{2}} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{0} 
+            & \multicolumn{1}{c}{$\sum\limits_{k = i}^j {{f_k}}$} \\
+            \bottomrule
+            
+        \end{tabular}%
+        \begin{tablenotes}
+            \item[1] $s_k$~为需要购买的新资源，$p_k$~为新资源的价格；
+            \item[2] 部分失败表示拒绝给予部分用户提供服务，但是这会带来违约赔偿；
+            \item[3] $f_k$~为支付第~$k$~个用户~$f_k$~违约金；
+            \item[4] $s_k$~为资源，$q_k$~为用户为此资源新支付的价格；
+        \end{tablenotes}
+    \end{threeparttable}
 \end{table}%
 
-\paragraph{服务执行的状态} 
-不确定性事件仍然如式(\ref{equation:event})所示，但是整体服务流程的状态则不能只是采用前锋线作为状态，因为业务层面，前锋线已经无法完整表示整个服务流程的执行状态，例如出现还没有执行的服务发生用户需求变化或者外部环境变化等。因此，采用所有活动上服务的状态作为一个向量集合表示整体服务的状态，如式(\ref{equation:bs_state_total})所示。
+%
+%根据以上三点介绍，可以形式化的表达需要解决的问题。
+%
+%问题的输入：当前的资源分配方案、不确定性事件列表
+%
+%问题的输出：资源重新分配方案
+%
+%优化目标：最大化服务提供者的收益，最小化用户提供的成本。
+%
+%形式化地，问题表示为
 
-\begin{equation}\label{equation:bs_state_total}
-state = < state(a_1),state(a_2),..., state(a_n)>
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & $state(a_i)$ & 活动~$a_i$~的状态。
-\end{tabularx}\vspace{\wordsep}
 
-\paragraph{A*搜索算法}
+%在业务层面，有比软件层面更灵活的需求和变化多端的外部环境。因此，需要比软件层面的服务多2个因素，一个是需求描述，另一个是外部环境。这两个因素会对业务层面服务产生不确定性事件。
+%
+%\setcounter{paragraph}{0}
+%\paragraph{服务方案}
+%使用服务流程表示当前执行中的服务方案，表示为如式(\ref{equation:bs_plan})所示。
+%\begin{equation}\label{equation:bs_plan}
+%SPlan = \left( {A,E,fc,dc,D,O} \right)
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & ${A}$、 ${E}$、 ${fc}$、 ${dc}$ & 同软件服务；\\
+%    & ${D}$ & 用户需求 \\
+%    & ${O}$ & 外部环境。
+%\end{tabularx}\vspace{\wordsep}
+%
+%\paragraph{需求描述}
+%用户需求分别为局部需求和全局需求，局部(单个活动)需求如式(\ref{equation:part_demand})所示，而整体服务流程的需求如式(\ref{equation:total_demand})所示。服务质量QoS如式(\ref{equation:qos})所示。
+%\begin{equation}\label{equation:part_demand}
+%d_i = \left(a_i, QoS_i \right)
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & ${a_i}$ & 第${i}$个服务； \\
+%    & ${QoS_i}$ & 第${i}$个服务的QoS。
+%\end{tabularx}\vspace{\wordsep}
+%
+%\begin{equation}\label{equation:total_demand}
+%D = \left ((d_1, d_2, ..., d_n), G\_QoS \right)
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & ${d_i}$ & 第${i}$个服务的需求； \\
+%    & ${G\_QoS}$ & 整体服务流程的QoS。
+%\end{tabularx}\vspace{\wordsep}
+%
+%\paragraph{外部环境}
+%外部环境也同需求一样，需要考虑局部和整体，因此，单个活动的外部环境(局部)如式(\ref{equation:part_demand})所示，整体外部环境)如式(\ref{equation:total_out})所示。
+%\begin{equation}\label{equation:part_out}
+%o_i = \left(ai, rs_i \right)
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & ${a_i}$ & 第${i}$个服务； \\
+%    & ${rs_i}$ & 外部依赖资源。
+%\end{tabularx}\vspace{\wordsep}
+%
+%\begin{equation}\label{equation:total_out}
+%O = \left((o_1, o_2, ..., o_n), G\_O \right)
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & ${o_i}$ & 第${i}$个活动的外部环境； \\
+%    & ${G\_O}$ & 整体的外部环境。
+%\end{tabularx}\vspace{\wordsep}
+%
+%\paragraph{不确定性事件}
+%在业务层面，不确定性事件众多，不便统一，在不同的领域不确定性则是不同的表现形式。本课题中，站在服务使用者的角度，将服务不确定性进行分类，如表~\ref{table:bs_uc_type}~所示。
+%
+%\begin{table}[htbp]
+%    \caption{业务层面不确定性分类}
+%    \vspace{-0.5em}\label{table:bs_uc_type}\centering\zihao{5}
+%    \begin{tabularx}{\textwidth}{cXX}
+%        \toprule
+%        不确定性事件  & \multicolumn{1}{c}{描述} & \multicolumn{1}{c}{举例} \\
+%        \midrule
+%        ~$E_{31}$~ & 用户所需QoS 发生变化，包括执行时间，成本(价格)，可靠性等等。& 用户不愿意支付原来的成本价格。  \\
+%        ~$E_{32}$~ & 用户所需服务发生变化，主要指某个活动用户需要指定某个服务来执行，或者指定不能由某个服务来执行。& 海运物流中，用户要求更换船公司。\\
+%        ~$E_{33}$~ & 用户要求终止服务执行。 & 海运物流中，用户取消运输服务。\\
+%        ~$E_{41}$~ & 服务所依赖的资源减为0或者完全失效，导致于依赖于此类资源的服务完全不能执行。 &海运物流中，所承载运输的船坏了，所运输的所有物品都不能运输了。\\
+%        ~$E_{42}$~ & 服务所依赖的资源减少一部分，导致于服务依赖的资源不足，服务执行受到影响，但不是完全不能执行。
+%        & 海运物流中，舱位个数预留不足，导致于货物不能全部装上，此时只能寻找其他船只的舱位同时运输。\\
+%
+%        \bottomrule
+%    \end{tabularx}%
+%\end{table}%
+%
+%\paragraph{服务执行的状态} 
+%不确定性事件仍然如式(\ref{equation:event})所示，但是整体服务流程的状态则不能只是采用前锋线作为状态，因为业务层面，前锋线已经无法完整表示整个服务流程的执行状态，例如出现还没有执行的服务发生用户需求变化或者外部环境变化等。因此，采用所有活动上服务的状态作为一个向量集合表示整体服务的状态，如式(\ref{equation:bs_state_total})所示。
+%
+%\begin{equation}\label{equation:bs_state_total}
+%state = < state(a_1),state(a_2),..., state(a_n)>
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & $state(a_i)$ & 活动~$a_i$~的状态。
+%\end{tabularx}\vspace{\wordsep}
+%
+%\paragraph{A*搜索算法}
+%
+%采用A*算法，计算从初始状态到目标状态的最优路径，在这里，初始状态为服务出现不确定性的时候的状态，目标状态是顾客期望的服务执行结束是的状态。需要注意的是目标状态可能有多个，有正常目标状态，也有不正常的目标状态。
+%
+%~a)~模型
+%
+%目标：从初始状态到目标状态的最优(成本最低)路径。
+%
+%评价函数：如式(\ref{equation:a_xin_func})所示。
+%\begin{equation}\label{equation:a_xin_func}
+%f(n)=g(h)+h(n)
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & $g(n)$ & 从初始节点到该节点n的路径耗散；\\
+%    & $h(n)$ & 从节点n到目标节点的最低耗散路径的估计耗散值，称为启发式或启发函数。
+%\end{tabularx}\vspace{\wordsep}
+%
+%对应到业务服务中，$g(n)$是当前状态执行动作的消耗，$h(n)$是从执行动作后的状态到目标状态最低的成本估计。
+%
+%~b)~算法
+%
+%基于上述的基本定义，可采用~A*~算法对服务不确定性进行决策。
+%
+%算法：基于~A*~的服务不确定性优化决策
+%
+%输入：服务方案~$SPlan$~、与当前发生的不确定性事件相关的活动~$activity$~、
+%~$SPlan$~中各个活动的当前状态、顾客期望的目标状态范围
+%
+%输出：达到目标状态最优决策
+%
+%步骤~1~~ 将出现服务不确定性的状态作为初始状态~$state_0$~放入~Open-list~，令$\hat g(S) = 0,\hat f(S) = 0$
+%
+%步骤~2~~ 如果~Open-list~为空，则退出算法，返回失败；
+%
+%步骤~3~~ 从~Open-list~中取出第1个节点，即$\hat f(n)$值最小者，令其为~Best-node~，放入~Closed-list~；
+%
+%步骤~4~~ 如果~Best-node~是目标节点(或处于顾客目标状态范围内)，则退出算法，返回目标节点；
+%
+%步骤~5~~ 否则，扩展~Best-node~，如果该状态无法采取任何动作，即该节点没有后继节点，则转到步骤2；
+%
+%步骤~6~~~~~~~~ 否则，根据不同的决策动作，结合不确定性的发生概率，生成其全部合法的后继节点，对于每个后继节点${n_{suc}}$，计算
+%\[g = \hat g(Best - node) + c(Best - node,{n_{SUC}})\]
+%
+%步骤~7~~~~~~~~ 如果${n_{suc}}$既不属于~Open-list~也不属于~Closed-list~，则令
+%\[\begin{array}{l}
+%\hat g({n_{SUC}}) = g \\
+%\hat f({n_{SUC}}) = g + \hat h({n_{SUC}})
+%\end{array}\]
+%并将${n_{suc}}$放入~Open-list~；
+%
+%步骤~8~~~~~~~~ 如果${n_{suc}}$或者属于~Open-list~或者属于~Closed-list~，并且$\hat g({n_{SUC}}) > g$，则令
+%\[\begin{array}{l}
+%\hat g({n_{SUC}}) = g \\
+%\hat f({n_{SUC}}) = g + \hat h({n_{SUC}})
+%\end{array}\]
+%并且如果${n_{suc}}$属于~Open-list~则保留不动，如果${n_{suc}}$属于~Closed-list~则将${n_{suc}}$移出~Closed-list~放入~Open-list~；
+%
+%步骤~9~~~~~~~~ 对于Open-list中的节点按照$\hat f(n)$值升序重新排序；
+%
+%步骤~10~~ 转到步骤2。
 
-采用A*算法，计算从初始状态到目标状态的最优路径，在这里，初始状态为服务出现不确定性的时候的状态，目标状态是顾客期望的服务执行结束是的状态。需要注意的是目标状态可能有多个，有正常目标状态，也有不正常的目标状态。
+\subsubsection{支持不确性决策的仿真系统}
 
-~a)~模型
-
-目标：从初始状态到目标状态的最优(成本最低)路径。
-
-评价函数：如式(\ref{equation:a_xin_func})所示。
-\begin{equation}\label{equation:a_xin_func}
-f(n)=g(h)+h(n)
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & $g(n)$ & 从初始节点到该节点n的路径耗散；\\
-    & $h(n)$ & 从节点n到目标节点的最低耗散路径的估计耗散值，称为启发式或启发函数。
-\end{tabularx}\vspace{\wordsep}
-
-对应到业务服务中，$g(n)$是当前状态执行动作的消耗，$h(n)$是从执行动作后的状态到目标状态最低的成本估计。
-
-~b)~算法
-
-基于上述的基本定义，可采用~A*~算法对服务不确定性进行决策。
-
-算法：基于~A*~的服务不确定性优化决策
-
-输入：服务方案~$SPlan$~、与当前发生的不确定性事件相关的活动~$activity$~、
-~$SPlan$~中各个活动的当前状态、顾客期望的目标状态范围
-
-输出：达到目标状态最优决策
-
-步骤~1~~ 将出现服务不确定性的状态作为初始状态~$state_0$~放入~Open-list~，令$\hat g(S) = 0,\hat f(S) = 0$
-
-步骤~2~~ 如果~Open-list~为空，则退出算法，返回失败；
-
-步骤~3~~ 从~Open-list~中取出第1个节点，即$\hat f(n)$值最小者，令其为~Best-node~，放入~Closed-list~；
-
-步骤~4~~ 如果~Best-node~是目标节点(或处于顾客目标状态范围内)，则退出算法，返回目标节点；
-
-步骤~5~~ 否则，扩展~Best-node~，如果该状态无法采取任何动作，即该节点没有后继节点，则转到步骤2；
-
-步骤~6~~~~~~~~ 否则，根据不同的决策动作，结合不确定性的发生概率，生成其全部合法的后继节点，对于每个后继节点${n_{suc}}$，计算
-\[g = \hat g(Best - node) + c(Best - node,{n_{SUC}})\]
-
-步骤~7~~~~~~~~ 如果${n_{suc}}$既不属于~Open-list~也不属于~Closed-list~，则令
-\[\begin{array}{l}
-\hat g({n_{SUC}}) = g \\
-\hat f({n_{SUC}}) = g + \hat h({n_{SUC}})
-\end{array}\]
-并将${n_{suc}}$放入~Open-list~；
-
-步骤~8~~~~~~~~ 如果${n_{suc}}$或者属于~Open-list~或者属于~Closed-list~，并且$\hat g({n_{SUC}}) > g$，则令
-\[\begin{array}{l}
-\hat g({n_{SUC}}) = g \\
-\hat f({n_{SUC}}) = g + \hat h({n_{SUC}})
-\end{array}\]
-并且如果${n_{suc}}$属于~Open-list~则保留不动，如果${n_{suc}}$属于~Closed-list~则将${n_{suc}}$移出~Closed-list~放入~Open-list~；
-
-步骤~9~~~~~~~~ 对于Open-list中的节点按照$\hat f(n)$值升序重新排序；
-
-步骤~10~~ 转到步骤2。
-
-\subsubsection{不确性决策的仿真系统}
-
-针对服务不确定性，将开发出一个软件层面的不确定性原型系统，此系统将采用随机的不确定性事件产生器，将预定义的组合服务进行仿真过程。
+针对服务不确定性，将开发出一个不确定性原型系统，此系统将采用随机的不确定性事件产生器，将预定义的组合服务进行仿真过程。
 
 系统的输入：~Web Service~执行方案。
 
@@ -952,7 +1167,7 @@ f(n)=g(h)+h(n)
 
 系统进行仿真的时候，选服务集(包括服务的QoS)随机生成，不确定性事件由正在执行的服务的可靠性提供概率作为生成种子。例如，目前正在执行的活动上绑定的服务的可靠性为~$r$~，则系统以$(1-r)$的概率产生不确定性事件。
 
-原型系统结构如图~\ref{figure:prototype_system}~所示，系统底层由大量虚拟的~Web Service~提供支持，具有一个候选服务的维护系统，同时故障监听器和价值、代价计算器为故障处理器提供支持，使得能够决策出最优的动作。最上层是服务执行/控制引擎，类似于~BPEL~执行引擎，对组合软件服务的执行进行控制、决策和故障恢复。
+仿真系统结构如图~\ref{figure:prototype_system}~所示，系统底层由大量虚拟的~Web Service~提供支持，具有一个候选服务的维护系统，同时故障监听器和价值、代价计算器为故障处理器提供支持，使得能够决策出最优的动作。最上层是服务执行/控制引擎，类似于~BPEL~执行引擎，对组合软件服务的执行进行控制、决策和故障恢复。
 
 \begin{figure}[htbp]
     \centering
@@ -963,7 +1178,7 @@ f(n)=g(h)+h(n)
 
 %拟采用的开发环境：Java语言，JDK 1.7; 运行环境：JRE 1.7 64bit，系统平台Microsoft Windows 7 64bit, 处理器为Intel® Core i3 CPU 3.0GHz，系统内存为4G，JVM分配512M内存。
 
-在仿真系统开发出来之后，拟进行三个实验：
+在仿真系统开发出来之后，针对软件层服务不确定性决策，拟进行三个实验：
 
 实验1：同一服务方案下，执行过程中面对一组按时间先后次序发生的不确定性事件，分别采用~MDP~和贪心策略，对比决策效果。
 
@@ -971,490 +1186,499 @@ f(n)=g(h)+h(n)
 
 实验3：针对不同结构、不同规模的流程，针对一次决策所耗费时间的对比。
 
-\subsubsection{不确性决策在海运物流中的应用验证}
+针对业务层面不确定性决策，拟进行三个实验：
 
-在基于价值的服务不确定性建模，并在软件服务中得以仿真实验后，以此思路将不确定性决策应用于海运物流业务服务中。因此，需要针对海运物流业务收取相应的信息，对海运物流服务方案、海运物流服务不确定性事件、海运物流服务的执行的状态、海运物流服务决策动作、海运物流服务中事件和决策及状态之间的关系、海运物流服务决策收益进行建模，最后开发出海运物流业务的不确定性决策系统。
+实验1：多用户同时请求，执行过程中随机发生用户需求和资源变化的不确定性事件，仿真服务执行结果；
 
-\setcounter{paragraph}{0}
-\paragraph{海运物流服务方案}
+实验2：用户需求发生变化，资源不发生变化，仿真收益随需求的变化趋势；
 
-%此处需要增加业务描述的QoS，需求等等
+实验3：资源发生变化，需求不发生变化，仿真收益随资源的变化趋势。
+
 %
-%业务层面的服务不同于如式(~\ref{equation:cs}~)所示的表示方式，其除了软件层面的QoS之外，还具备
-
-业务层面的不确定性采用海运物流业务作为示例，其多方之间的工作流程如图~\ref{figure:bp_example}~所示。它实际上就是一个有向图，将其简化转换之后如图~\ref{figure:bp_ws_process}~所示。
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width = 0.95\textwidth]{bp_example}
-    \caption{海运物流工作流}\label{figure:bp_example}
-    \vspace{-1em}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width = 0.7\textwidth]{bp_ws_process}
-    \caption{海运物流业务DAG图}\label{figure:bp_ws_process}
-    \vspace{-1em}
-\end{figure}
-
-\paragraph{海运物流服务不确定性事件}
-
-业务层面执行比软件层面有更多复杂的不确定性事件，其表示方式如式(\ref{equation:event})所示。其不确定性事件的类型除了软件服务的不确定性事件之外，还增加两类事件：
-
-\begin{itemize}
-    
-    \item 由用户产生的事件，主要指用户需求发生变化，分为以下几类：
-    
-    $E_{31}$:~用户所需~QoS~发生变化，包括执行时间，成本(价格)，可靠性等等。
-    
-    $E_{32}$:~用户所需服务发生变化，主要指某个活动用户需要指定某个服务来执行，或者指定不能由某个服务来执行。
-    
-    $E_{33}$:~用户要求终止服务执行。
-    
-    \item 由服务执行方产生的事件，主要指服务执行所需的可用资源发生变化，比如海运物流中集装箱的个数由于损坏而变少，则海运无法继续按照原计划执行运输，再如航空领域由于天气原因导致的航班取消，导致于当天能够起飞的飞机数量变少(甚至于减少为0)。这两类统称为服务的可用资源发生变化，分为以下若干小类：
-    
-    $E_{41}$:~服务所依赖的资源减为0或者完全失效，导致于依赖于此类资源的服务完全不能执行。比如海运物流中，所承载运输的船坏了，所运输的所有物品都不能运输了。
-    
-    $E_{42}$:~服务所依赖的资源减少一部分，导致于服务依赖的资源不足，服务执行受到影响，但不是完全不能执行。比如海运物流中，舱位个数预留不足，导致于货物不能全部装上，此时只能寻找其他船只的舱位同时运输。
-    
-    
-\end{itemize}
-
-其不确定性事件在不同的活动中是不一样的，因此枚举所有活动中所有可能的不确定性事件如表~\ref{table:ocean_shipping_uc}~所示。
-
-% Table generated by Excel2LaTeX from sheet 'Sheet8'
+%\subsubsection{不确性决策在海运物流中的应用验证}
+%
+%在基于价值的服务不确定性建模，并在软件服务中得以仿真实验后，以此思路将不确定性决策应用于海运物流业务服务中。因此，需要针对海运物流业务收取相应的信息，对海运物流服务方案、海运物流服务不确定性事件、海运物流服务的执行的状态、海运物流服务决策动作、海运物流服务中事件和决策及状态之间的关系、海运物流服务决策收益进行建模，最后开发出海运物流业务的不确定性决策系统。
+%
+%\setcounter{paragraph}{0}
+%\paragraph{海运物流服务方案}
+%
+%%此处需要增加业务描述的QoS，需求等等
+%%
+%%业务层面的服务不同于如式(~\ref{equation:cs}~)所示的表示方式，其除了软件层面的QoS之外，还具备
+%
+%业务层面的不确定性采用海运物流业务作为示例，其多方之间的工作流程如图~\ref{figure:bp_example}~所示。它实际上就是一个有向图，将其简化转换之后如图~\ref{figure:bp_ws_process}~所示。
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width = 0.95\textwidth]{bp_example}
+%    \caption{海运物流工作流}\label{figure:bp_example}
+%    \vspace{-1em}
+%\end{figure}
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width = 0.7\textwidth]{bp_ws_process}
+%    \caption{海运物流业务DAG图}\label{figure:bp_ws_process}
+%    \vspace{-1em}
+%\end{figure}
+%
+%\paragraph{海运物流服务不确定性事件}
+%
+%业务层面执行比软件层面有更多复杂的不确定性事件，其表示方式如式(\ref{equation:event})所示。其不确定性事件的类型除了软件服务的不确定性事件之外，还增加两类事件：
+%
+%\begin{itemize}
+%    
+%    \item 由用户产生的事件，主要指用户需求发生变化，分为以下几类：
+%    
+%    $E_{31}$:~用户所需~QoS~发生变化，包括执行时间，成本(价格)，可靠性等等。
+%    
+%    $E_{32}$:~用户所需服务发生变化，主要指某个活动用户需要指定某个服务来执行，或者指定不能由某个服务来执行。
+%    
+%    $E_{33}$:~用户要求终止服务执行。
+%    
+%    \item 由服务执行方产生的事件，主要指服务执行所需的可用资源发生变化，比如海运物流中集装箱的个数由于损坏而变少，则海运无法继续按照原计划执行运输，再如航空领域由于天气原因导致的航班取消，导致于当天能够起飞的飞机数量变少(甚至于减少为0)。这两类统称为服务的可用资源发生变化，分为以下若干小类：
+%    
+%    $E_{41}$:~服务所依赖的资源减为0或者完全失效，导致于依赖于此类资源的服务完全不能执行。比如海运物流中，所承载运输的船坏了，所运输的所有物品都不能运输了。
+%    
+%    $E_{42}$:~服务所依赖的资源减少一部分，导致于服务依赖的资源不足，服务执行受到影响，但不是完全不能执行。比如海运物流中，舱位个数预留不足，导致于货物不能全部装上，此时只能寻找其他船只的舱位同时运输。
+%    
+%    
+%\end{itemize}
+%
+%其不确定性事件在不同的活动中是不一样的，因此枚举所有活动中所有可能的不确定性事件如表~\ref{table:ocean_shipping_uc}~所示。
+%
+%% Table generated by Excel2LaTeX from sheet 'Sheet8'
+%%\begin{table}[htbp]
+%%    \caption{海运物流中的不确定性}
+%%    \vspace{-0.5em}\label{table:ocean_shipping_uc}\centering\zihao{5}
+%%    \begin{tabular}{cccc}
+%%         \toprule
+%%         活动编号  & 活动描述  & 需求的不确定性 & 可用资源的不确定性 \\
+%%         \midrule
+%%         ~$a_1$~ & 发布航线信息 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_2$~ & 询问航线信息 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_3$~ & 查询、返回航线信息 & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_4$~ & 预订舱位  & ~$E_{31}$~ ~$E_{32}$~ & - \\
+%%         ~$a_5$~ & 接受舱位预订 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_6$~ & 接受提单  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_7$~ & 预订集装箱 & ~$E_{31}$~ ~$E_{32}$~ & - \\
+%%         ~$a_8$~ & 预订卡车  & ~$E_{31}$~ ~$E_{32}$~ & - \\
+%%         ~$a_9$~ & 报关申请  & ~$E_{31}$~   & - \\
+%%         ~$a_{10}$~ & 确认集装箱预订 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{11}$~ & 确认卡车预订 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{12}$~ & 报关检查  & -     & ~$E_{41}$~ \\
+%%         ~$a_{13}$~ & 运输空箱  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{14}$~ & 装载货物进集装箱 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{15}$~ & 铅封集装箱 & ~$E_{32}$~   & ~$E_{41}$~ \\
+%%         ~$a_{16}$~ & 运输重箱  & -     & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{17}$~ & 堆存货物  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{18}$~ & 货物装船  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
+%%         ~$a_{19}$~ & 运输货物至目的地 & -     & ~$E_{41}$~ \\
+%%         \bottomrule
+%%    \end{tabular}%
+%%\end{table}%
+%
 %\begin{table}[htbp]
 %    \caption{海运物流中的不确定性}
 %    \vspace{-0.5em}\label{table:ocean_shipping_uc}\centering\zihao{5}
-%    \begin{tabular}{cccc}
-%         \toprule
-%         活动编号  & 活动描述  & 需求的不确定性 & 可用资源的不确定性 \\
-%         \midrule
-%         ~$a_1$~ & 发布航线信息 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_2$~ & 询问航线信息 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_3$~ & 查询、返回航线信息 & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_4$~ & 预订舱位  & ~$E_{31}$~ ~$E_{32}$~ & - \\
-%         ~$a_5$~ & 接受舱位预订 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_6$~ & 接受提单  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_7$~ & 预订集装箱 & ~$E_{31}$~ ~$E_{32}$~ & - \\
-%         ~$a_8$~ & 预订卡车  & ~$E_{31}$~ ~$E_{32}$~ & - \\
-%         ~$a_9$~ & 报关申请  & ~$E_{31}$~   & - \\
-%         ~$a_{10}$~ & 确认集装箱预订 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{11}$~ & 确认卡车预订 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{12}$~ & 报关检查  & -     & ~$E_{41}$~ \\
-%         ~$a_{13}$~ & 运输空箱  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{14}$~ & 装载货物进集装箱 & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{15}$~ & 铅封集装箱 & ~$E_{32}$~   & ~$E_{41}$~ \\
-%         ~$a_{16}$~ & 运输重箱  & -     & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{17}$~ & 堆存货物  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{18}$~ & 货物装船  & ~$E_{31}$~ ~$E_{32}$~ & ~$E_{41}$~ ~$E_{42}$~ \\
-%         ~$a_{19}$~ & 运输货物至目的地 & -     & ~$E_{41}$~ \\
-%         \bottomrule
-%    \end{tabular}%
+%    \begin{tabularx}{\textwidth}{cX}
+%        \toprule
+%        活动编号  & \multicolumn{1}{c}{可能的不确定性} \\
+%        \midrule
+%        ~$a_1$~ & ~$E_{41}$:(天气原因)轮船不能航行;~$E_{42}$:(轮船损坏)轮船数量减少; \\
+%        ~$a_2$~ & ~$E_{41}$:(天气原因)轮船不能航行;~$E_{42}$:(轮船损坏)轮船数量减少; \\
+%        ~$a_3$~ & ~$E_{31}$:需求的价格/运输时间/可靠性发生变化;~$E_{32}$:用户指定需要某(种)条船;~$E_{41}$:轮船不能航行;~$E_{42}$:轮船数量减少; \\
+%        ~$a_4$~ & ~$E_{31}$:需求的价格发生变化;~$E_{32}$:用户指定需要某个(种)舱位; \\
+%        ~$a_5$~ & ~$E_{41}$:(海关原因)舱位完全不能满足;~$E_{42}$:(轮船损坏)能提供的舱位数量不足; \\
+%        ~$a_6$~ & ~$E_{31}$:需求的价格发生变化;~$E_{32}$:用户指定需要某个/种舱位;~$E_{41}$:舱位完全不能满足;~$E_{42}$:能提供的舱位数量不足; \\
+%        ~$a_7$~ & ~$E_{31}$:需求的集装箱成本变化;~$E_{32}$:用户指定更换为某批/种集装箱; \\
+%        ~$a_8$~ & ~$E_{31}$:需求的卡车运输成本/运输时间发生变化;~$E_{32}$:用户指定要求另一批/类型卡车运输; \\
+%        ~$a_9$~ & ~$E_{31}$:需求报关时间变化; \\
+%        ~$a_{10}$~ & ~$E_{41}$:集装箱完全不能满足;~$E_{42}$:集装箱只能满足部分需求; \\
+%        ~$a_{11}$~ & ~$E_{41}$:卡车完全不能满足;~$E_{42}$:卡车只能满足部分需求; \\
+%        ~$a_{12}$~ & ~$E_{41}$:报关被拒,完全失败; \\
+%        ~$a_{13}$~ & ~$E_{31}$:需求的集装箱成本变化;~$E_{32}$:用户指定更换为某批/种集装箱;~$E_{41}$:运输过程中车祸集装箱全部损坏;~$E_{42}$:运输过程中集装箱部分损坏; \\
+%        ~$a_{14}$~ & ~$E_{41}$:货物不能装在此类集装箱;~$E_{42}$:货物只能装部分集装箱; \\
+%        ~$a_{15}$~ & ~$E_{32}$:需求更换为某批/种集装箱;~$E_{41}$:车队技术工人无法上班,不能铅封; \\
+%        ~$a_{16}$~ & ~$E_{41}$:车队无法运输所有集装箱;~$E_{42}$:车祸损坏了部分集装箱; \\
+%        ~$a_{17}$~ & ~$E_{31}$:需求成本/可靠性变化;~$E_{32}$:需求更换场站;~$E_{41}$:场站不能堆存货物;~$E_{42}$:场站只能堆存部分货物; \\
+%        ~$a_{18}$~ & ~$E_{31}$:需求成本变化;~$E_{32}$:需求更换船只;~$E_{41}$:货物不能装船;~$E_{42}$:货物只能部分装船; \\
+%        ~$a_{19}$~ & ~$E_{41}$:货物中途出现问题,被退回来或不能到达; \\
+%        \bottomrule
+%    \end{tabularx}%
 %\end{table}%
-
-\begin{table}[htbp]
-    \caption{海运物流中的不确定性}
-    \vspace{-0.5em}\label{table:ocean_shipping_uc}\centering\zihao{5}
-    \begin{tabularx}{\textwidth}{cX}
-        \toprule
-        活动编号  & \multicolumn{1}{c}{可能的不确定性} \\
-        \midrule
-        ~$a_1$~ & ~$E_{41}$:(天气原因)轮船不能航行;~$E_{42}$:(轮船损坏)轮船数量减少; \\
-        ~$a_2$~ & ~$E_{41}$:(天气原因)轮船不能航行;~$E_{42}$:(轮船损坏)轮船数量减少; \\
-        ~$a_3$~ & ~$E_{31}$:需求的价格/运输时间/可靠性发生变化;~$E_{32}$:用户指定需要某(种)条船;~$E_{41}$:轮船不能航行;~$E_{42}$:轮船数量减少; \\
-        ~$a_4$~ & ~$E_{31}$:需求的价格发生变化;~$E_{32}$:用户指定需要某个(种)舱位; \\
-        ~$a_5$~ & ~$E_{41}$:(海关原因)舱位完全不能满足;~$E_{42}$:(轮船损坏)能提供的舱位数量不足; \\
-        ~$a_6$~ & ~$E_{31}$:需求的价格发生变化;~$E_{32}$:用户指定需要某个/种舱位;~$E_{41}$:舱位完全不能满足;~$E_{42}$:能提供的舱位数量不足; \\
-        ~$a_7$~ & ~$E_{31}$:需求的集装箱成本变化;~$E_{32}$:用户指定更换为某批/种集装箱; \\
-        ~$a_8$~ & ~$E_{31}$:需求的卡车运输成本/运输时间发生变化;~$E_{32}$:用户指定要求另一批/类型卡车运输; \\
-        ~$a_9$~ & ~$E_{31}$:需求报关时间变化; \\
-        ~$a_{10}$~ & ~$E_{41}$:集装箱完全不能满足;~$E_{42}$:集装箱只能满足部分需求; \\
-        ~$a_{11}$~ & ~$E_{41}$:卡车完全不能满足;~$E_{42}$:卡车只能满足部分需求; \\
-        ~$a_{12}$~ & ~$E_{41}$:报关被拒,完全失败; \\
-        ~$a_{13}$~ & ~$E_{31}$:需求的集装箱成本变化;~$E_{32}$:用户指定更换为某批/种集装箱;~$E_{41}$:运输过程中车祸集装箱全部损坏;~$E_{42}$:运输过程中集装箱部分损坏; \\
-        ~$a_{14}$~ & ~$E_{41}$:货物不能装在此类集装箱;~$E_{42}$:货物只能装部分集装箱; \\
-        ~$a_{15}$~ & ~$E_{32}$:需求更换为某批/种集装箱;~$E_{41}$:车队技术工人无法上班,不能铅封; \\
-        ~$a_{16}$~ & ~$E_{41}$:车队无法运输所有集装箱;~$E_{42}$:车祸损坏了部分集装箱; \\
-        ~$a_{17}$~ & ~$E_{31}$:需求成本/可靠性变化;~$E_{32}$:需求更换场站;~$E_{41}$:场站不能堆存货物;~$E_{42}$:场站只能堆存部分货物; \\
-        ~$a_{18}$~ & ~$E_{31}$:需求成本变化;~$E_{32}$:需求更换船只;~$E_{41}$:货物不能装船;~$E_{42}$:货物只能部分装船; \\
-        ~$a_{19}$~ & ~$E_{41}$:货物中途出现问题,被退回来或不能到达; \\
-        \bottomrule
-    \end{tabularx}%
-\end{table}%
-
-\paragraph{海运物流服务的执行的状态}
-
-~a)~单个活动的状态
-
-服务执行的状态表示方式与软件服务状态表示方式一致，单个活动之间的状态转换关系如图~\ref{figure:state_trans_pb}~所示。
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width = 0.6\textwidth]{state_trans_bp}
-    \caption{业务层面服务活动的状态转换关系}\label{figure:state_trans_pb}
-    \vspace{-1em}
-\end{figure}
-
-业务层面服务活动之间的状态转换不同于如图~\ref{figure:state_trans}~所示的~Web Service~服务活动之间的状态转换，其不同点主要有：
-
-\begin{itemize}
-
-\item 业务服务在部分活动上即是~Web Service~，另一些活动是业务服务，因此具备业务层面不确定性；
-
-\item 业务层面在$READY$状态时会有用户的需求或者外部环境的变化，使得服务执行到另外的状态；而在纯的~Web Service~层面无需对$READY$状态的不确定性进行考虑；
-
-\item 业务层面在$EXEC$状态也会有用户的需求或者外部环境的变化而导致于服务执行状态发生变化，甚至于引起服务执行失败；而在~Web Service~层面仅仅需要等到服务执行完的事件触发~$E_{21}/E_{22}$~。
-
-\end{itemize}
-
-~b)~服务执行的整体状态
-
-在业务层面，由于不同的事件会使得流程执行到不同的状态，并且业务层面的需求和外部环境是可观察的，这与~Web Service~层面不同。因此，处理服务不确定性时需要确定是由用户需求导致的还是由外部环境变化导致的，从而整体服务流程的状态可由前锋线上的状态和不确定性事件源组合而成，如式(\ref{equation:state_total_bp})所示。
-
-\begin{equation}\label{equation:state_total_bp}
-state = < state(a_i),state(a_{i+1}),..., state(a_j), event >
-\end{equation}
-\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
-    式中
-    & $state(a_i)$ & 活动~$a_i$~的状态；\\
-    & $event$ & 使得服务处于当前状态的不确定性事件，如式(\ref{equation:event})所示。
-\end{tabularx}\vspace{\wordsep}
-
-业务层面的不确定性事件也包含软件层面的不确定性事件，而软件层面的不确定性事件是不可观测的，因此若服务状态是由软件层面的不确定性事件触发，则式(\ref{equation:state_total_bp})中的~$event$~取值为~$NULL$~，此时，按照软件层面的不确定性进行决策，如表~\ref{table:state_action}~所示。
-
-\paragraph{海运物流服务决策动作}
-
-业务层面的决策动作如同软件层面的决策动作，只是决策时刻不只是在服务执行结束时，而且在服务未执行时若有不确定性事件发生也会进行决策，换句话说，决策不仅包括对当前所执行服务的决策，并对预测的非正常服务也执行决策。
-
-同时，业务层面的不确定性一旦发生，就必须做出决策，这是因为无论用户需求发生变化还是外部环境发生变化，若不进行动作（不作为）则会导致业务执行下来不满足用户需求或者彻底失败，而这两种结果不是想要的结果。
-
-\paragraph{海运物流服务中事件、决策和状态之间的关系}
-
-要对业务层面的不确定性进行决策，需要知道业务层面导致于此类不确定性的原因(事件源)，即是在如图~\ref{figure:state_trans_pb}~中体现出来即指向某状态的边上的事件，于是可以根据类似表~\ref{table:state_action}~中所示的软件层面不确定性而得出业务层面不确定性，如表~\ref{table:state_action_bp}~所示，此表与如图~\ref{figure:state_trans_pb}~中的事件和状态相一致。
-
-\begin{table}[htbp]
-    \caption{服务状态与决策动作之间的关系(业务层面)}
-    \vspace{-0.5em}\label{table:state_action_bp}\centering\zihao{5}
-    \begin{threeparttable}
-        \begin{tabular}{clclccc}
-            \toprule
-            事件源 & 状态类型\tnote{1} & 决策动作 & 决策后可能状态\tnote{1} & $r$~\tnote{2} & {$\Delta T$} & {$\Delta C$} \\
-            \midrule
-            
-            %------------------------------------------------------
-            {$E_{31}$} 
-            & {${READY^U}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            
-            {}
-            & {}
-            & {替换} 
-            & {$FINISH$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
-            & {\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            %------------------------------------------------------
-            {} 
-            & {${FAIL}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            
-            {}
-            & \multicolumn{1}{r}{$/EXEC^U$}
-            & {替换} 
-            & {${FINISH}^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{ik}$}} 
-            & {\multirow{2}{*}{$C_{ik}$}} \\
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{i0}+\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$C_{i0}+\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            %------------------------------------------------------
-            {} 
-            & {${FINISH^U}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            %------------------------------------------------------
-            {$E_{32}$} 
-            & {$READY^U$}
-            & {替换} 
-            & {$FINISH$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
-            & {\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            %------------------------------------------------------
-            {$E_{33}$} 
-            & {${READY^U}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            %------------------------------------------------------
-            {$E_{41}$} 
-            & {${FAIL^U}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            
-            {}
-            & {}
-            & {替换} 
-            & {$FINISH$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{ik}$}} 
-            & {\multirow{2}{*}{$C_{ik}$}} \\
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{i0}+\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$C_{i0}+\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            %------------------------------------------------------
-            {$E_{42}$} 
-            & {${READY^U}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            
-            {}
-            & {}
-            & {替换} 
-            & {$FINISH$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
-            & {\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            %------------------------------------------------------
-            {} 
-            & {${EXEC^U}$}
-            & {终止}
-            & {$STOP$} 
-            & {0} 
-            & {0} 
-            & {$fc$} \\
-            
-            {}
-            & \multicolumn{1}{r}{$/FINISH^U$}
-            & {替换} 
-            & {$FINISH$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{ik}$}} 
-            & {\multirow{2}{*}{$C_{ik}$}} \\
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            {}
-            & {}
-            & {重组} 
-            & {$FINISH^{N/U}$} 
-            & $R_{ik}\tnote{3}$ 
-            & {\multirow{2}{*}{$T_{i0}+\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
-            & {\multirow{2}{*}{$C_{i0}+\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
-            
-            
-            {}
-            & {}
-            & {} 
-            & {$FAIL$} 
-            & {0}
-            & {} 
-            & {} \\
-            
-            \bottomrule
-        \end{tabular}%
-        
-        \begin{tablenotes}
-            \item[1] 决策动作前状态所带参数为$(T,C)$, 决策后状态参数变为~$(T+\Delta T, C+\Delta C)$,~ 其中~$\Delta T \ge 0$, ~$\Delta C \ge 0$~; 
-            \item[2] $r$~为决策后,服务可继续执行的概率;
-            \item[3] $S_{ik}$~为替换后的服务或者重组后最先执行的服务，~$R_{ik}$~为此服务的可靠性。
-        \end{tablenotes}
-    \end{threeparttable}
-\end{table}%
-
-\paragraph{海运物流服务决策收益}
-
-决策收益的计算方式与软件层面的决策收益一致，其中~$r$~、~$\Delta T$~、 ~$\Delta C$~的计算方式如表~\ref{table:state_action_bp}~右侧的三列所示。
-
-%\paragraph{不确定性触发关系图}
 %
-%业务层面不确定性触发关系图同~\ref{sec:utg}~介绍一样。
-
-\paragraph{海运物流业务的不确定性决策系统}
-
-在海运物流中，如图~\ref{figure:bp_example}~所示的业务流程，可针对每个可~IT~化的活动，开发出支持此活动的~Web Service~(例如图~\ref{figure:bp_example}~所示的活动~$a_{4}$~:预订舱位)，而其余只能人工作的活动(例如图~\ref{figure:bp_example}~所示的活动~$a_{14}$~:装箱)则无需开发。
-
-开发软件层面的原型系统之后，针对海运物流的具体业务流程，开发针对海运物流的不确定性决策系统，其底层由软件层面的原型系统提供支持，上层运行海运物流的业务流程。其系统结构如图~\ref{figure:app_system}~所示。
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width = 0.7\textwidth]{app_system}
-    \caption{支持不确定性决策的海运物流业务系统结构}\label{figure:app_system}
-    \vspace{-1em}
-\end{figure}
+%\paragraph{海运物流服务的执行的状态}
+%
+%~a)~单个活动的状态
+%
+%服务执行的状态表示方式与软件服务状态表示方式一致，单个活动之间的状态转换关系如图~\ref{figure:state_trans_pb}~所示。
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width = 0.6\textwidth]{state_trans_bp}
+%    \caption{业务层面服务活动的状态转换关系}\label{figure:state_trans_pb}
+%    \vspace{-1em}
+%\end{figure}
+%
+%业务层面服务活动之间的状态转换不同于如图~\ref{figure:state_trans}~所示的~Web Service~服务活动之间的状态转换，其不同点主要有：
+%
+%\begin{itemize}
+%
+%\item 业务服务在部分活动上即是~Web Service~，另一些活动是业务服务，因此具备业务层面不确定性；
+%
+%\item 业务层面在$READY$状态时会有用户的需求或者外部环境的变化，使得服务执行到另外的状态；而在纯的~Web Service~层面无需对$READY$状态的不确定性进行考虑；
+%
+%\item 业务层面在$EXEC$状态也会有用户的需求或者外部环境的变化而导致于服务执行状态发生变化，甚至于引起服务执行失败；而在~Web Service~层面仅仅需要等到服务执行完的事件触发~$E_{21}/E_{22}$~。
+%
+%\end{itemize}
+%
+%~b)~服务执行的整体状态
+%
+%在业务层面，由于不同的事件会使得流程执行到不同的状态，并且业务层面的需求和外部环境是可观察的，这与~Web Service~层面不同。因此，处理服务不确定性时需要确定是由用户需求导致的还是由外部环境变化导致的，从而整体服务流程的状态可由前锋线上的状态和不确定性事件源组合而成，如式(\ref{equation:state_total_bp})所示。
+%
+%\begin{equation}\label{equation:state_total_bp}
+%state = < state(a_i),state(a_{i+1}),..., state(a_j), event >
+%\end{equation}
+%\begin{tabularx}{\textwidth}{@{}l@{\quad}l@{\pozhehao }X@{}}
+%    式中
+%    & $state(a_i)$ & 活动~$a_i$~的状态；\\
+%    & $event$ & 使得服务处于当前状态的不确定性事件，如式(\ref{equation:event})所示。
+%\end{tabularx}\vspace{\wordsep}
+%
+%业务层面的不确定性事件也包含软件层面的不确定性事件，而软件层面的不确定性事件是不可观测的，因此若服务状态是由软件层面的不确定性事件触发，则式(\ref{equation:state_total_bp})中的~$event$~取值为~$NULL$~，此时，按照软件层面的不确定性进行决策，如表~\ref{table:state_action}~所示。
+%
+%\paragraph{海运物流服务决策动作}
+%
+%业务层面的决策动作如同软件层面的决策动作，只是决策时刻不只是在服务执行结束时，而且在服务未执行时若有不确定性事件发生也会进行决策，换句话说，决策不仅包括对当前所执行服务的决策，并对预测的非正常服务也执行决策。
+%
+%同时，业务层面的不确定性一旦发生，就必须做出决策，这是因为无论用户需求发生变化还是外部环境发生变化，若不进行动作（不作为）则会导致业务执行下来不满足用户需求或者彻底失败，而这两种结果不是想要的结果。
+%
+%\paragraph{海运物流服务中事件、决策和状态之间的关系}
+%
+%要对业务层面的不确定性进行决策，需要知道业务层面导致于此类不确定性的原因(事件源)，即是在如图~\ref{figure:state_trans_pb}~中体现出来即指向某状态的边上的事件，于是可以根据类似表~\ref{table:state_action}~中所示的软件层面不确定性而得出业务层面不确定性，如表~\ref{table:state_action_bp}~所示，此表与如图~\ref{figure:state_trans_pb}~中的事件和状态相一致。
+%
+%\begin{table}[htbp]
+%    \caption{服务状态与决策动作之间的关系(业务层面)}
+%    \vspace{-0.5em}\label{table:state_action_bp}\centering\zihao{5}
+%    \begin{threeparttable}
+%        \begin{tabular}{clclccc}
+%            \toprule
+%            事件源 & 状态类型\tnote{1} & 决策动作 & 决策后可能状态\tnote{1} & $r$~\tnote{2} & {$\Delta T$} & {$\Delta C$} \\
+%            \midrule
+%            
+%            %------------------------------------------------------
+%            {$E_{31}$} 
+%            & {${READY^U}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            
+%            {}
+%            & {}
+%            & {替换} 
+%            & {$FINISH$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
+%            & {\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            %------------------------------------------------------
+%            {} 
+%            & {${FAIL}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            
+%            {}
+%            & \multicolumn{1}{r}{$/EXEC^U$}
+%            & {替换} 
+%            & {${FINISH}^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{ik}$}} 
+%            & {\multirow{2}{*}{$C_{ik}$}} \\
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{i0}+\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$C_{i0}+\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            %------------------------------------------------------
+%            {} 
+%            & {${FINISH^U}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            %------------------------------------------------------
+%            {$E_{32}$} 
+%            & {$READY^U$}
+%            & {替换} 
+%            & {$FINISH$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
+%            & {\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            %------------------------------------------------------
+%            {$E_{33}$} 
+%            & {${READY^U}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            %------------------------------------------------------
+%            {$E_{41}$} 
+%            & {${FAIL^U}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            
+%            {}
+%            & {}
+%            & {替换} 
+%            & {$FINISH$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{ik}$}} 
+%            & {\multirow{2}{*}{$C_{ik}$}} \\
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{i0}+\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$C_{i0}+\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            %------------------------------------------------------
+%            {$E_{42}$} 
+%            & {${READY^U}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            
+%            {}
+%            & {}
+%            & {替换} 
+%            & {$FINISH$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{ik}-T_{i0}$}} 
+%            & {\multirow{2}{*}{$C_{ik}-C_{i0}$}} \\
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            %------------------------------------------------------
+%            {} 
+%            & {${EXEC^U}$}
+%            & {终止}
+%            & {$STOP$} 
+%            & {0} 
+%            & {0} 
+%            & {$fc$} \\
+%            
+%            {}
+%            & \multicolumn{1}{r}{$/FINISH^U$}
+%            & {替换} 
+%            & {$FINISH$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{ik}$}} 
+%            & {\multirow{2}{*}{$C_{ik}$}} \\
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            {}
+%            & {}
+%            & {重组} 
+%            & {$FINISH^{N/U}$} 
+%            & $R_{ik}\tnote{3}$ 
+%            & {\multirow{2}{*}{$T_{i0}+\sum\limits_{x = i}^j {({T_{xk}} - {T_{x0}})} $}}
+%            & {\multirow{2}{*}{$C_{i0}+\sum\limits_{x = i}^j {({C_{xk}} - {C_{x0}})} $}} \\
+%            
+%            
+%            {}
+%            & {}
+%            & {} 
+%            & {$FAIL$} 
+%            & {0}
+%            & {} 
+%            & {} \\
+%            
+%            \bottomrule
+%        \end{tabular}%
+%        
+%        \begin{tablenotes}
+%            \item[1] 决策动作前状态所带参数为$(T,C)$, 决策后状态参数变为~$(T+\Delta T, C+\Delta C)$,~ 其中~$\Delta T \ge 0$, ~$\Delta C \ge 0$~; 
+%            \item[2] $r$~为决策后,服务可继续执行的概率;
+%            \item[3] $S_{ik}$~为替换后的服务或者重组后最先执行的服务，~$R_{ik}$~为此服务的可靠性。
+%        \end{tablenotes}
+%    \end{threeparttable}
+%\end{table}%
+%
+%\paragraph{海运物流服务决策收益}
+%
+%决策收益的计算方式与软件层面的决策收益一致，其中~$r$~、~$\Delta T$~、 ~$\Delta C$~的计算方式如表~\ref{table:state_action_bp}~右侧的三列所示。
+%
+%%\paragraph{不确定性触发关系图}
+%%
+%%业务层面不确定性触发关系图同~\ref{sec:utg}~介绍一样。
+%
+%\paragraph{海运物流业务的不确定性决策系统}
+%
+%在海运物流中，如图~\ref{figure:bp_example}~所示的业务流程，可针对每个可~IT~化的活动，开发出支持此活动的~Web Service~(例如图~\ref{figure:bp_example}~所示的活动~$a_{4}$~:预订舱位)，而其余只能人工作的活动(例如图~\ref{figure:bp_example}~所示的活动~$a_{14}$~:装箱)则无需开发。
+%
+%开发软件层面的原型系统之后，针对海运物流的具体业务流程，开发针对海运物流的不确定性决策系统，其底层由软件层面的原型系统提供支持，上层运行海运物流的业务流程。其系统结构如图~\ref{figure:app_system}~所示。
+%
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width = 0.7\textwidth]{app_system}
+%    \caption{支持不确定性决策的海运物流业务系统结构}\label{figure:app_system}
+%    \vspace{-1em}
+%\end{figure}
 
 %-------------------------------------------
 
 \subsection{预期达到的目标和取得的研究成果}
 
-对不确定性建模进行完整细化并开发出原型系统进行仿真，通过与传统的不决策或者贪心决策方式对比，从而证明本课题的研究价值。并且，开发一个针对海运物流的应用系统，其中嵌入本课题的不确定性决策的原型系统作为中间件，从而实现海运物流的不确定性决策的自动化，进一步证明本课题具有很强的研究价值。
+对不确定性建模进行完整细化并开发出原型系统进行仿真，通过与传统的不决策或者贪心决策方式对比，从而证明本课题的研究价值。并且，通过业务层面的服务不确定性仿真，证明业务服务不确定性决策~IT~化的可行性。
 
 \subsection{进度安排}
 \begin{itemize}
